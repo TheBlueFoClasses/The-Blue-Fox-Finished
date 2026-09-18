@@ -1,0 +1,6 @@
+{
+  "name": "The Blue Fox",
+  "description": "A creative, joyful, and calm art school website with class schedules, student portfolios, and registrations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

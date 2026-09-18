@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Blue Fox - Fine Art Classes</title>
+  <meta name="description" content="A creative, joyful, and calm art school website with class schedules, student portfolios, and registrations.">
+  <meta property="og:title" content="The Blue Fox - Fine Art Classes">
+  <meta property="og:description" content="A creative, joyful, and calm art school website with class schedules, student portfolios, and registrations.">
+  <meta property="og:image" content="./assets/images/ClassWilAnimalsFoxMask.jpg">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'sunset-orange': '#f36b2e',
+            'mango': '#ffbe26',
+            'ocean-water': '#cce6f4',
+            'bright-blue': '#1a6bb5',
+            'brilliant-blue': '#0c4a86',
+            'oiler-navy': '#19244e',
+            'french-violet': '#803cd6',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="bg-white text-oiler-navy font-sans antialiased selection:bg-sunset-orange selection:text-white">
+
+  <!-- ========================================================= -->
+  <!-- 1. HEADER & NAVIGATION                                    -->
+  <!-- ========================================================= -->
+  <header
+    id="main-nav-container"
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/90 backdrop-blur-md py-4"
+  >
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo & Brand -->
+        <a id="brand-logo-link" href="#home" class="flex items-center space-x-3 group">
+          <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-brilliant-blue transition-transform duration-300 group-hover:scale-105">
+            <img
+              id="brand-mascot-img"
+              src="./assets/images/regenerated_image_1782310899144.png"
+              alt="The Blue Fox Mascot"
+              class="w-full h-full object-cover"
+            >
+          </div>
+          <div class="flex flex-col">
+            <span id="brand-name-text" class="text-2xl font-serif font-black tracking-tight text-oiler-navy group-hover:text-brilliant-blue transition-colors duration-200">
+              The Blue <span class="text-sunset-orange font-bold">Fox</span>
+            </span>
+            <span class="text-[10px] uppercase tracking-widest text-[#19244e]/70 font-sans font-semibold -mt-1">
+              Fine Art Classes
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav id="desktop-navigation-links" class="hidden lg:flex items-center space-x-8">
+          <a data-nav-link href="#home" class="text-sm font-semibold tracking-wider transition-colors py-2 relative group text-sunset-orange">
+            HOME
+            <span class="absolute bottom-0 left-0 h-0.5 bg-sunset-orange transition-all duration-300 w-full"></span>
+          </a>
+          <a data-nav-link href="#about" class="text-sm font-semibold tracking-wider transition-colors py-2 relative group text-oiler-navy hover:text-sunset-orange">
+            ABOUT
+            <span class="absolute bottom-0 left-0 h-0.5 bg-sunset-orange transition-all duration-300 w-0 group-hover:w-full"></span>
+          </a>
+          <a data-nav-link href="#calendar" class="text-sm font-semibold tracking-wider transition-colors py-2 relative group text-oiler-navy hover:text-sunset-orange">
+            CALENDAR
+            <span class="absolute bottom-0 left-0 h-0.5 bg-sunset-orange transition-all duration-300 w-0 group-hover:w-full"></span>
+          </a>
+          <a data-nav-link href="#portfolio" class="text-sm font-semibold tracking-wider transition-colors py-2 relative group text-oiler-navy hover:text-sunset-orange">
+            PORTFOLIO
+            <span class="absolute bottom-0 left-0 h-0.5 bg-sunset-orange transition-all duration-300 w-0 group-hover:w-full"></span>
+          </a>
+          <a data-nav-link href="#lead-capture" class="text-sm font-semibold tracking-wider transition-colors py-2 relative group text-oiler-navy hover:text-sunset-orange">
+            CONTACT
+            <span class="absolute bottom-0 left-0 h-0.5 bg-sunset-orange transition-all duration-300 w-0 group-hover:w-full"></span>
+          </a>
+        </nav>
+
+        <!-- Desktop Facebook CTA -->
+        <div id="desktop-cta-container" class="hidden lg:flex items-center">
+          <a
+            id="desktop-facebook-nav-btn"
+            href="http://www.facebook.com/thebluefoxclasses"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit The Blue Fox on Facebook"
+            class="w-11 h-11 rounded-full bg-sunset-orange hover:bg-mango text-white flex items-center justify-center transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-sunset-orange/30 transform hover:scale-110 shrink-0"
+            title="Visit our Facebook page"
+          >
+            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <div class="lg:hidden flex items-center">
+          <button
+            id="mobile-menu-btn"
+            type="button"
+            class="p-2 rounded-xl text-oiler-navy hover:text-sunset-orange focus:outline-none"
+            aria-label="Toggle navigation menu"
+          >
+            <i data-lucide="menu" class="w-7 h-7"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu Drawer -->
+    <div id="mobile-menu-drawer" class="hidden lg:hidden bg-white border-b border-ocean-water/40 shadow-xl px-4 pt-2 pb-6 space-y-3">
+      <a href="#home" class="mobile-nav-link flex items-center space-x-3 p-3 rounded-2xl hover:bg-ocean-water/20 font-bold text-oiler-navy">
+        <i data-lucide="compass" class="w-5 h-5 text-sunset-orange"></i>
+        <span>HOME</span>
+      </a>
+      <a href="#about" class="mobile-nav-link flex items-center space-x-3 p-3 rounded-2xl hover:bg-ocean-water/20 font-bold text-oiler-navy">
+        <i data-lucide="landmark" class="w-5 h-5 text-sunset-orange"></i>
+        <span>ABOUT</span>
+      </a>
+      <a href="#calendar" class="mobile-nav-link flex items-center space-x-3 p-3 rounded-2xl hover:bg-ocean-water/20 font-bold text-oiler-navy">
+        <i data-lucide="calendar" class="w-5 h-5 text-sunset-orange"></i>
+        <span>CALENDAR</span>
+      </a>
+      <a href="#portfolio" class="mobile-nav-link flex items-center space-x-3 p-3 rounded-2xl hover:bg-ocean-water/20 font-bold text-oiler-navy">
+        <i data-lucide="image" class="w-5 h-5 text-sunset-orange"></i>
+        <span>PORTFOLIO</span>
+      </a>
+      <a href="#lead-capture" class="mobile-nav-link flex items-center space-x-3 p-3 rounded-2xl hover:bg-ocean-water/20 font-bold text-oiler-navy">
+        <i data-lucide="message-square" class="w-5 h-5 text-sunset-orange"></i>
+        <span>CONTACT</span>
+      </a>
+      <div class="pt-4 border-t border-ocean-water/30 flex justify-center">
+        <a
+          href="http://www.facebook.com/thebluefoxclasses"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center space-x-2 bg-sunset-orange hover:bg-mango text-white font-bold text-xs uppercase px-5 py-2.5 rounded-full shadow-md"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          <span>Facebook Page</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================= -->
+  <!-- MAIN LANDING CONTENT (Switched on/off by router)           -->
+  <!-- ========================================================= -->
+  <main id="main-page-content">
+
+    <!-- ----------------------------------------------------- -->
+    <!-- HERO SECTION                                          -->
+    <!-- ----------------------------------------------------- -->
+    <section
+      id="home"
+      class="relative min-h-screen pt-28 lg:pt-36 pb-16 bg-white overflow-hidden flex items-center"
+    >
+      <!-- Background paint splatters / ambient blurs -->
+      <div class="absolute top-10 left-10 w-72 h-72 rounded-full bg-ocean-water/30 blur-3xl -z-10 pointer-events-none"></div>
+      <div class="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-mango/10 blur-3xl -z-10 pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <!-- Text Content -->
+          <div class="lg:col-span-5 flex flex-col justify-center text-left" id="hero-text-content">
+            <h1
+              id="hero-headline"
+              class="text-3xl sm:text-4xl lg:text-4xl font-serif font-black text-oiler-navy leading-tight mb-6 tracking-tight text-balance"
+            >
+              At The Blue Fox, we believe that creating art shouldn't be stressful, and that 
+              <span class="relative inline-block text-sunset-orange">
+                anyone can be an artist
+                <span class="absolute bottom-1 left-0 w-full h-3 bg-ocean-water -z-10 transform -rotate-2 rounded"></span>
+              </span> 
+              as long as you believe in yourself!
+            </h1>
+
+            <p
+              id="hero-subtext"
+              class="text-base sm:text-lg text-oiler-navy/80 font-normal leading-relaxed mb-8 max-w-xl font-sans"
+            >
+              Whether you're picking up a paintbrush for the first time in years or refining your unique artistic style, our welcoming classes are designed for you. With expert guidance, proven teaching methods, a supportive atmosphere, and a vibrant creative community, it's easy to see why students return again and again. The joy of creating and becoming your best self is the real journey.
+            </p>
+
+            <div id="hero-cta-group" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6">
+              <a
+                id="hero-secondary-btn"
+                href="#calendar"
+                class="text-oiler-navy hover:text-brilliant-blue font-bold tracking-wider text-sm text-center py-3.5 px-6 rounded-full border border-oiler-navy/20 hover:border-brilliant-blue transition-all bg-transparent flex items-center justify-center space-x-2 shadow-xs hover:shadow-md"
+              >
+                <i data-lucide="calendar" class="w-5 h-5 text-sunset-orange"></i>
+                <span>VIEW CALENDAR</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Hero Image -->
+          <div class="w-full mt-12 lg:mt-0 lg:col-span-7 relative" id="hero-image-canvas">
+            <div class="relative w-full aspect-[4/3] sm:aspect-[16/11] lg:aspect-[4/3]">
+              <div class="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-brilliant-blue via-ocean-water to-mango opacity-80 transform -rotate-1.5 -z-10"></div>
+              <div class="group relative w-full h-full rounded-2xl overflow-hidden bg-white shadow-2xl border-4 border-white select-none">
+                <img
+                  src="./assets/images/ClassWilAnimalsFoxMask.jpg"
+                  alt="Students holding fox masks at The Blue Fox paint class"
+                  class="w-full h-full object-cover transform hover:scale-102 transition-transform duration-700 ease-out"
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------- -->
+    <!-- MEET THE INSTRUCTOR SECTION                           -->
+    <!-- ----------------------------------------------------- -->
+    <section id="about" class="py-20 lg:py-28 bg-ocean-water/10 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-80 h-80 rounded-full bg-ocean-water/20 blur-3xl"></div>
+      <div class="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-mango/5 blur-3xl"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          
+          <!-- Portrait Left -->
+          <div class="lg:col-span-5 relative" id="instructor-portrait-col">
+            <div class="absolute -inset-4 bg-gradient-to-br from-brilliant-blue to-ocean-water opacity-40 rounded-[2.5rem] transform rotate-3"></div>
+            <div class="absolute -bottom-8 -left-8 w-32 h-32 bg-ocean-water rounded-full -z-10 opacity-70"></div>
+            
+            <div class="relative rounded-[2rem] overflow-hidden border-8 border-white shadow-2xl aspect-[3/4]">
+              <img
+                id="instructor-portrait-img"
+                src="./assets/images/Instructor_Aryn_Headshot.jpeg"
+                alt="Aryn Lill Diemand - Instructor & Founder of The Blue Fox Art Studio"
+                class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+              >
+              <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-oiler-navy/80 via-oiler-navy/30 to-transparent p-6 text-white">
+                <p class="font-serif text-2xl font-bold">Aryn Lill Diemand</p>
+                <p class="text-sm text-ocean-water font-sans font-medium tracking-wide">Lead Instructor & Founder</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bio Right -->
+          <div class="lg:col-span-7 flex flex-col" id="instructor-biography-col">
+            <h2 id="instructor-bio-title" class="text-3xl sm:text-4xl lg:text-5xl font-serif font-extrabold text-oiler-navy tracking-tight mb-6">
+              Meet the Instructor
+            </h2>
+
+            <div class="space-y-6 text-base sm:text-lg text-oiler-navy/80 font-sans leading-relaxed">
+              <p>
+                Meet your lead instructor of art, <strong>Aryn Lill Diemand</strong>! An award-winning muralist and fine artist, Aryn has been sparking creativity in students since 2005. Whether she’s painting public art across Minnesota or teaching her signature curriculum through The Blue Fox, Aryn’s goal is to help every student—&ldquo;big or small&rdquo;—find their unique style.
+              </p>
+              <p>
+                With degrees in Studio Arts and Fashion Design, Aryn brings a world of creative experience to every class. She spent years honing her teaching craft in California’s top art programs before returning home to MN to launch her own traveling studio. Join her for a class to see why her students love her!
+              </p>
+            </div>
+
+            <!-- Signature Quote -->
+            <div class="mt-8 p-5 bg-white rounded-2xl border-l-4 border-sunset-orange shadow-sm">
+              <span class="font-serif italic text-oiler-navy/70 block text-base md:text-lg">
+                "Create something that comes from your soul and share it with the world."
+              </span>
+              <span class="text-xs font-bold text-sunset-orange uppercase tracking-wider block mt-2 text-right">— ARYN</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Studio Philosophy Pillars -->
+        <div class="mt-24" id="brand-values-grid-container">
+          <div class="text-center max-w-xl mx-auto mb-12">
+            <h3 class="text-2xl font-serif font-bold text-oiler-navy">Our Studio Philosophy</h3>
+            <p class="text-sm text-oiler-navy/70 mt-2 font-sans">
+              Four simple pillars that make art classes at The Blue Fox a breath of fresh air.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- 1. Fun -->
+            <div class="bg-white p-6 rounded-3xl border border-ocean-water/40 shadow-xs hover:shadow-md transition-shadow">
+              <div class="w-12 h-12 rounded-2xl bg-sunset-orange text-white flex items-center justify-center mb-4">
+                <i data-lucide="smile" class="w-6 h-6"></i>
+              </div>
+              <h4 class="font-serif font-bold text-lg text-oiler-navy mb-2">Fun</h4>
+              <p class="text-sm text-oiler-navy/70 font-sans leading-relaxed">
+                Splatter paint, try something new, share stories, and meet new friends. A Blue Fox class is all about having fun and making memories while learning new techniques.
+              </p>
+            </div>
+
+            <!-- 2. Inviting -->
+            <div class="bg-white p-6 rounded-3xl border border-ocean-water/40 shadow-xs hover:shadow-md transition-shadow">
+              <div class="w-12 h-12 rounded-2xl bg-ocean-water text-oiler-navy flex items-center justify-center mb-4">
+                <i data-lucide="coffee" class="w-6 h-6"></i>
+              </div>
+              <h4 class="font-serif font-bold text-lg text-oiler-navy mb-2">Inviting</h4>
+              <p class="text-sm text-oiler-navy/70 font-sans leading-relaxed">
+                Slow down, enjoy the ride, and feel at home. Our inviting spaces are chosen to make you feel comfortable and welcome, whatever your age or skill level.
+              </p>
+            </div>
+
+            <!-- 3. Technical -->
+            <div class="bg-white p-6 rounded-3xl border border-ocean-water/40 shadow-xs hover:shadow-md transition-shadow">
+              <div class="w-12 h-12 rounded-2xl bg-brilliant-blue text-white flex items-center justify-center mb-4">
+                <i data-lucide="palette" class="w-6 h-6"></i>
+              </div>
+              <h4 class="font-serif font-bold text-lg text-oiler-navy mb-2">Technical</h4>
+              <p class="text-sm text-oiler-navy/70 font-sans leading-relaxed">
+                We are passionate about helping every student grow. Our curriculum emphasizes the fundamental elements of art with proven application methods to guide your process.
+              </p>
+            </div>
+
+            <!-- 4. Creative -->
+            <div class="bg-white p-6 rounded-3xl border border-ocean-water/40 shadow-xs hover:shadow-md transition-shadow">
+              <div class="w-12 h-12 rounded-2xl bg-mango text-oiler-navy flex items-center justify-center mb-4">
+                <i data-lucide="sparkles" class="w-6 h-6"></i>
+              </div>
+              <h4 class="font-serif font-bold text-lg text-oiler-navy mb-2">Creative</h4>
+              <p class="text-sm text-oiler-navy/70 font-sans leading-relaxed">
+                Discover your unique visual voice. We encourage customization, self-expression, experimentation, and completely free styling.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------- -->
+    <!-- GALLERY / PORTFOLIO SECTION                           -->
+    <!-- ----------------------------------------------------- -->
+    <section id="portfolio" class="py-20 lg:py-28 bg-ocean-water/10 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16" id="portfolio-header-container">
+          <h2 id="portfolio-title" class="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-oiler-navy tracking-tight mb-4">
+            The Blue Fox Gallery
+          </h2>
+          <p class="text-lg text-oiler-navy/70 font-sans max-w-xl mx-auto">
+            We offer drawing, acrylic painting, and barn quilt painting classes for adults, and creative summer camps for kids. Take a look at our portfolio by clicking on an image below.
+          </p>
+
+          <!-- Buttons for Sub-Galleries -->
+          <div class="flex flex-wrap items-center justify-center gap-4 mt-8">
+            <a
+              href="#student-masterpieces"
+              class="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-widest shadow-md hover:shadow-lg transition-all bg-brilliant-blue hover:bg-brilliant-blue/90 text-white cursor-pointer"
+            >
+              <i data-lucide="sparkles" class="w-4 h-4 text-mango"></i>
+              <span>Student Masterpieces</span>
+            </a>
+            <a
+              href="#barn-quilt-designs"
+              class="inline-flex items-center space-x-2 px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-widest shadow-md hover:shadow-lg transition-all bg-sunset-orange hover:bg-mango text-white cursor-pointer"
+            >
+              <i data-lucide="palette" class="w-4 h-4"></i>
+              <span>Barn Quilt Designs</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Gallery Grid (Rendered by JS) -->
+        <div id="portfolio-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Dynamically populated by js/app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------- -->
+    <!-- ANNUAL CLASS CALENDAR 2026 SECTION                    -->
+    <!-- ----------------------------------------------------- -->
+    <section id="calendar" class="py-20 lg:py-28 bg-white relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-12">
+          <span class="text-xs font-bold tracking-widest uppercase px-3.5 py-1.5 rounded-full bg-sunset-orange/10 text-sunset-orange inline-block mb-3">
+            Join a Workshop
+          </span>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-oiler-navy tracking-tight mb-4">
+            Annual Class Calendar 2026
+          </h2>
+          <p class="text-base sm:text-lg text-oiler-navy/70 font-sans max-w-xl mx-auto">
+            Browse our upcoming sessions across Minnesota communities. Click on any class to see complete details and reserve your easel.
+          </p>
+        </div>
+
+        <!-- Filters & View Mode Switcher -->
+        <div class="bg-ocean-water/15 p-4 sm:p-6 rounded-3xl border border-ocean-water/40 shadow-xs mb-8 space-y-4">
+          <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+            
+            <!-- Search Input -->
+            <div class="relative flex-1">
+              <i data-lucide="search" class="w-5 h-5 text-oiler-navy/40 absolute left-4 top-1/2 -translate-y-1/2"></i>
+              <input
+                id="calendar-search-input"
+                type="text"
+                placeholder="Search classes by title, topic, or location..."
+                class="w-full pl-12 pr-4 py-3 rounded-full bg-white border border-ocean-water/60 text-sm font-medium text-oiler-navy focus:outline-none focus:ring-2 focus:ring-sunset-orange"
+              >
+            </div>
+
+            <!-- Dropdown Filters -->
+            <div class="flex flex-wrap sm:flex-nowrap items-center gap-3">
+              <select
+                id="calendar-age-filter"
+                class="px-4 py-3 rounded-full bg-white border border-ocean-water/60 text-xs font-bold uppercase tracking-wider text-oiler-navy focus:outline-none focus:ring-2 focus:ring-sunset-orange"
+              >
+                <option value="all">All Age Groups</option>
+                <option value="kids-family">Kids & Family</option>
+                <option value="adults">Adults (18+)</option>
+              </select>
+
+              <select
+                id="calendar-medium-filter"
+                class="px-4 py-3 rounded-full bg-white border border-ocean-water/60 text-xs font-bold uppercase tracking-wider text-oiler-navy focus:outline-none focus:ring-2 focus:ring-sunset-orange"
+              >
+                <option value="all">All Mediums</option>
+                <option value="painting">Acrylics & Barn Quilts</option>
+                <option value="mixed-media">Drawing & Workshops</option>
+              </select>
+
+              <!-- Monthly vs Annual Mode Tabs -->
+              <div class="flex items-center bg-white p-1 rounded-full border border-ocean-water/60">
+                <button
+                  id="calendar-tab-monthly"
+                  class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-sunset-orange text-white shadow-xs cursor-pointer"
+                >
+                  Monthly
+                </button>
+                <button
+                  id="calendar-tab-annual"
+                  class="px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-oiler-navy/70 hover:text-oiler-navy cursor-pointer"
+                >
+                  Annual
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monthly Calendar View -->
+        <div id="monthly-view-container" class="space-y-6">
+          <!-- Month Switcher Header -->
+          <div class="flex items-center justify-between bg-white px-6 py-4 rounded-2xl border border-ocean-water/40 shadow-xs">
+            <button
+              id="prev-month-btn"
+              class="flex items-center space-x-1 text-sm font-bold text-oiler-navy hover:text-sunset-orange transition-colors cursor-pointer"
+            >
+              <i data-lucide="chevron-left" class="w-5 h-5"></i>
+              <span class="hidden sm:inline">Previous</span>
+            </button>
+
+            <h3 id="calendar-month-title" class="text-xl sm:text-2xl font-serif font-black text-oiler-navy tracking-tight">
+              July 2026
+            </h3>
+
+            <button
+              id="next-month-btn"
+              class="flex items-center space-x-1 text-sm font-bold text-oiler-navy hover:text-sunset-orange transition-colors cursor-pointer"
+            >
+              <span class="hidden sm:inline">Next</span>
+              <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            </button>
+          </div>
+
+          <!-- Weekday Headers -->
+          <div class="grid grid-cols-7 gap-2 text-center text-xs font-bold uppercase tracking-widest text-oiler-navy/70 py-2">
+            <div>Sun</div>
+            <div>Mon</div>
+            <div>Tue</div>
+            <div>Wed</div>
+            <div>Thu</div>
+            <div>Fri</div>
+            <div>Sat</div>
+          </div>
+
+          <!-- Days Grid (Rendered by JS) -->
+          <div id="calendar-days-grid" class="grid grid-cols-7 gap-2">
+            <!-- Dynamically generated days -->
+          </div>
+
+          <!-- Color Legend -->
+          <div class="flex flex-wrap items-center justify-center gap-4 pt-6 text-xs text-oiler-navy/80 font-medium">
+            <div class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-mango"></span>
+              <span>Youth Classes</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-ocean-water border border-ocean-water/50"></span>
+              <span>Online Courses</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-brilliant-blue"></span>
+              <span>Colored Pencil</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-sunset-orange"></span>
+              <span>Barn Quilt Painting</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="w-3 h-3 rounded-full bg-oiler-navy"></span>
+              <span>Adult Painting</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Annual Calendar View (Initially hidden) -->
+        <div id="annual-view-container" class="hidden">
+          <div id="annual-months-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamically populated 12 months -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------- -->
+    <!-- TESTIMONIALS SECTION                                  -->
+    <!-- ----------------------------------------------------- -->
+    <section id="testimonials" class="py-20 lg:py-24 bg-ocean-water/10 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div id="testimonials-block">
+          <div class="text-center max-w-xl mx-auto mb-12">
+            <h2 class="text-3xl sm:text-4xl font-serif font-bold text-oiler-navy mt-1 tracking-tight">
+              What Our Artists Say
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Testimonial 1 -->
+            <div class="bg-white p-8 sm:p-10 rounded-[2.5rem] border border-ocean-water/40 shadow-sm relative flex flex-col justify-between">
+              <span class="absolute top-6 left-6 text-sunset-orange/15 font-serif text-8xl pointer-events-none -mt-4 font-black leading-none">“</span>
+              <p class="text-base sm:text-lg text-oiler-navy/85 italic leading-relaxed font-sans relative z-10 font-medium">
+                "My daughter has participated in quite a few Community Education experiences and has generally enjoyed each class to varying degrees. This class was above and beyond positive! She came home each day full of joy. She absolutely loved the teacher and the structure of the class. The activities and environment were top-tier. Thank you for offering such a fun program, and thank you to the teacher for bringing joy to this class!"
+              </p>
+              <div class="mt-8 pt-6 border-t border-ocean-water/30 flex items-center space-x-4">
+                <div class="w-11 h-11 bg-gradient-to-tr from-brilliant-blue to-ocean-water rounded-full flex items-center justify-center font-serif text-white font-black text-sm uppercase shadow-inner">
+                  P
+                </div>
+                <div class="text-left">
+                  <p class="font-serif font-black text-oiler-navy text-base leading-tight">Parent of Student</p>
+                  <p class="text-xs text-oiler-navy/60 font-sans tracking-wide mt-0.5">Harry Potter Art Camp</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="bg-white p-8 sm:p-10 rounded-[2.5rem] border border-ocean-water/40 shadow-sm relative flex flex-col justify-between">
+              <span class="absolute top-6 left-6 text-sunset-orange/15 font-serif text-8xl pointer-events-none -mt-4 font-black leading-none">“</span>
+              <p class="text-base sm:text-lg text-oiler-navy/85 italic leading-relaxed font-sans relative z-10 font-medium">
+                "I really enjoyed the Monet Water Lilies Class! The instructor explained brush techniques and color mixing; she even left room for you to explore different painting processes, which resulted in an amazing array of creative originals! It was a happy experience that I would gladly do again."
+              </p>
+              <div class="mt-8 pt-6 border-t border-ocean-water/30 flex items-center space-x-4">
+                <div class="w-11 h-11 bg-gradient-to-tr from-brilliant-blue to-ocean-water rounded-full flex items-center justify-center font-serif text-white font-black text-sm uppercase shadow-inner">
+                  H
+                </div>
+                <div class="text-left">
+                  <p class="font-serif font-black text-oiler-navy text-base leading-tight">Heather</p>
+                  <p class="text-xs text-oiler-navy/60 font-sans tracking-wide mt-0.5">Blue Fox Student</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="bg-white p-8 sm:p-10 rounded-[2.5rem] border border-ocean-water/40 shadow-sm relative flex flex-col justify-between">
+              <span class="absolute top-6 left-6 text-sunset-orange/15 font-serif text-8xl pointer-events-none -mt-4 font-black leading-none">“</span>
+              <p class="text-base sm:text-lg text-oiler-navy/85 italic leading-relaxed font-sans relative z-10 font-medium">
+                "As an educator, I was impressed by the quality of instruction. The class was thoughtfully paced, allowing enough time to learn each step without feeling rushed while keeping everyone engaged from start to finish. Whether you are a beginner or have prior artistic experience, the instruction is designed to help you grow in confidence and leave with a piece you can be proud of. I highly recommend this class to anyone looking for a well-organized, engaging, and rewarding creative experience."
+              </p>
+              <div class="mt-8 pt-6 border-t border-ocean-water/30 flex items-center space-x-4">
+                <div class="w-11 h-11 bg-gradient-to-tr from-brilliant-blue to-ocean-water rounded-full flex items-center justify-center font-serif text-white font-black text-sm uppercase shadow-inner">
+                  L
+                </div>
+                <div class="text-left">
+                  <p class="font-serif font-black text-oiler-navy text-base leading-tight">Lori</p>
+                  <p class="text-xs text-oiler-navy/60 font-sans tracking-wide mt-0.5">Professional Educator</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------- -->
+    <!-- LEAD CAPTURE & CONTACT SECTION                        -->
+    <!-- ----------------------------------------------------- -->
+    <section id="lead-capture" class="py-20 lg:py-28 bg-white relative">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12">
+          <span class="text-xs font-bold tracking-widest uppercase px-3.5 py-1.5 rounded-full bg-sunset-orange/10 text-sunset-orange inline-block mb-3">
+            Get in Touch
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-serif font-black text-oiler-navy tracking-tight mb-4">
+            Have a Question or Want to Book a Private Class?
+          </h2>
+          <p class="text-base sm:text-lg text-oiler-navy/70 font-sans max-w-xl mx-auto">
+            Whether you want to host a private birthday workshop, plan a family gathering, or inquire about custom barn quilts, we’d love to hear from you!
+          </p>
+        </div>
+
+        <!-- Success Alert (Shown when form submitted) -->
+        <div id="lead-success-alert" class="hidden mb-8 p-6 bg-emerald-50 border border-emerald-300 rounded-3xl text-center">
+          <i data-lucide="check-circle-2" class="w-10 h-10 text-emerald-600 mx-auto mb-2"></i>
+          <h4 class="font-serif font-bold text-xl text-emerald-900 mb-1">Thank You! Your message has been sent.</h4>
+          <p class="text-sm text-emerald-800 font-sans">
+            Aryn will review your inquiry and get back to you within 24–48 hours.
+          </p>
+        </div>
+
+        <!-- Contact Form -->
+        <form id="lead-capture-form" class="bg-ocean-water/10 p-8 sm:p-12 rounded-[2.5rem] border border-ocean-water/40 shadow-xs space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="lead-name" class="block text-xs font-bold uppercase tracking-wider text-oiler-navy mb-2">
+                Your Full Name *
+              </label>
+              <input
+                id="lead-name"
+                type="text"
+                required
+                placeholder="Jane Doe"
+                class="w-full px-4 py-3 rounded-2xl bg-white border border-ocean-water/60 text-sm font-medium text-oiler-navy focus:outline-none focus:ring-2 focus:ring-sunset-orange"
+              >
+            </div>
+
+            <div>
+              <label for="lead-email" class="block text-xs font-bold uppercase tracking-wider text-oiler-navy mb-2">
+                Email Address *
+              </label>
+              <input
+                id="lead-email"
+                type="email"
+                required
+                placeholder="jane@example.com"
+                class="w-full px-4 py-3 rounded-2xl bg-white border border-ocean-water/60 text-sm font-medium text-oiler-navy focus:outline-none focus:ring-2 focus:ring-sunset-orange"
+              >
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="lead-phone" class="block text-xs font-bold uppercase tracking-wider text-oiler-navy mb-2">
+                Phone Number *
+              </label>
+              <input
+                id="lead-phone"
+                type="tel"
+                required
+                placeholder="(612) 555-0199"
+                class="w-full px-4 py-3 rounded-2xl bg-white border border-ocean-water/60 text-sm font-medium text-oiler-navy focus:outline-none focus:ring-2 focus:ring-sunset-orange"
+              >
+            </div>
+
+            <div>
+              <label for="lead-inquiry-type" class="block text-xs font-bold uppercase tracking-wider text-oiler-navy mb-2">
+                Inquiry Type
+              </label>
+              <select
+                id="lead-inquiry-type"
+                class="w-full px-4 py-3 rounded-2xl bg-white border border-ocean-water/60 text-sm font-medium text-oiler-navy focus:outline-none focus:ring-2 focus:ring-sunset-orange"
+              >
+                <option value="private-event">Private Event / Birthday Party</option>
+                <option value="classes-calendar">Class & Calendar Question</option>
+                <option value="barn-quilt-custom">Custom Barn Quilt Commission</option>
+                <option value="other">General Inquiry</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label for="lead-message" class="block text-xs font-bold uppercase tracking-wider text-oiler-navy mb-2">
+              Message or Details *
+            </label>
+            <textarea
+              id="lead-message"
+              rows="4"
+              required
+              placeholder="Tell us about your event, preferred dates, number of attendees, or questions..."
+              class="w-full px-4 py-3 rounded-2xl bg-white border border-ocean-water/60 text-sm font-medium text-oiler-navy focus:outline-none focus:ring-2 focus:ring-sunset-orange"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-4 rounded-full bg-sunset-orange hover:bg-mango text-white font-bold text-sm uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer"
+          >
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>Send Message</span>
+          </button>
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================= -->
+  <!-- 2. BARN QUILT DESIGNS FULL PAGE VIEW                      -->
+  <!-- ========================================================= -->
+  <div id="barn-quilt-designs-page" class="hidden min-h-screen bg-ocean-water/10 py-28 lg:py-36 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Back button -->
+      <div class="mb-8 flex items-center justify-between">
+        <button
+          id="back-to-gallery-from-bq"
+          class="inline-flex items-center space-x-2 text-oiler-navy hover:text-sunset-orange font-bold text-sm bg-white px-5 py-2.5 rounded-full shadow-xs border border-ocean-water/40 transition-all hover:shadow-md cursor-pointer"
+        >
+          <i data-lucide="arrow-left" class="w-4 h-4 text-sunset-orange"></i>
+          <span>Back to The Blue Fox Gallery</span>
+        </button>
+      </div>
+
+      <!-- Header -->
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-flex items-center space-x-2 bg-sunset-orange/10 text-sunset-orange font-bold text-xs uppercase tracking-widest px-4 py-1.5 rounded-full mb-3 border border-sunset-orange/20">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-mango"></i>
+          <span>Made with Reclaimed MN Barnwood</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-oiler-navy tracking-tight mb-4">
+          Barn Quilt Designs
+        </h1>
+        <p class="text-base sm:text-lg text-oiler-navy/80 font-sans max-w-2xl mx-auto leading-relaxed">
+          Select your favorite geometric pattern for your upcoming Barn Quilt Painting Class! Each design comes with beautifully illustrated instructions and your own reclaimed wood pallet. You can even choose your own colors to customize the design.
+        </p>
+      </div>
+
+      <!-- 9 Designs Grid (Rendered by JS) -->
+      <div id="barn-quilts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 3. STUDENT MASTERPIECES FULL PAGE VIEW                    -->
+  <!-- ========================================================= -->
+  <div id="student-masterpieces-page" class="hidden min-h-screen bg-ocean-water/10 py-28 lg:py-36 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Back button -->
+      <div class="mb-8 flex items-center justify-between">
+        <button
+          id="back-to-gallery-from-sm"
+          class="inline-flex items-center space-x-2 text-oiler-navy hover:text-sunset-orange font-bold text-sm bg-white px-5 py-2.5 rounded-full shadow-xs border border-ocean-water/40 transition-all hover:shadow-md cursor-pointer"
+        >
+          <i data-lucide="arrow-left" class="w-4 h-4 text-sunset-orange"></i>
+          <span>Back to The Blue Fox Gallery</span>
+        </button>
+      </div>
+
+      <!-- Header -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center space-x-2 bg-brilliant-blue/10 text-brilliant-blue font-bold text-xs uppercase tracking-widest px-4 py-1.5 rounded-full mb-3 border border-brilliant-blue/20">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-mango"></i>
+          <span>Student Showcase</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-oiler-navy tracking-tight mb-4">
+          Student Masterpieces
+        </h1>
+        <p class="text-base sm:text-lg text-oiler-navy/80 font-sans max-w-2xl mx-auto leading-relaxed">
+          Celebrating the incredible imagination, technical growth, and creativity of our students of all ages across Minnesota.
+        </p>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div id="sm-categories-filter" class="flex flex-wrap items-center justify-center gap-2 mb-12">
+        <!-- Dynamically populated -->
+      </div>
+
+      <!-- Masterpieces Grid (Rendered by JS) -->
+      <div id="student-masterpieces-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 4. CLASS DETAIL PAGE VIEW                                 -->
+  <!-- ========================================================= -->
+  <div id="class-detail-page" class="hidden min-h-screen bg-white py-28 lg:py-36">
+    <!-- Populated by renderClassDetail() in js/app.js -->
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 5. LIGHTBOX MODAL                                         -->
+  <!-- ========================================================= -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-oiler-navy/90 backdrop-blur-md hidden flex items-center justify-center p-4 modal-backdrop">
+    <div class="relative bg-white rounded-3xl overflow-hidden max-w-3xl w-full shadow-2xl modal-content">
+      <button id="close-lightbox-btn" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/80 hover:bg-white text-oiler-navy flex items-center justify-center shadow-md cursor-pointer">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <div class="aspect-square sm:aspect-[4/3] max-h-[70vh] bg-slate-100 overflow-hidden flex items-center justify-center">
+        <img id="lightbox-img" src="" alt="" class="w-full h-full object-contain">
+      </div>
+      <div class="p-6 text-left">
+        <h3 id="lightbox-title" class="font-serif font-black text-2xl text-oiler-navy mb-1"></h3>
+        <p id="lightbox-author" class="text-sm font-bold text-sunset-orange mb-2"></p>
+        <p id="lightbox-desc" class="text-sm text-oiler-navy/70 leading-relaxed"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 6. REGISTRATION MODAL                                     -->
+  <!-- ========================================================= -->
+  <div id="registration-modal" class="fixed inset-0 z-50 bg-oiler-navy/90 backdrop-blur-md hidden flex items-center justify-center p-4 modal-backdrop">
+    <div class="relative bg-white rounded-3xl overflow-hidden max-w-lg w-full shadow-2xl modal-content p-6 sm:p-8">
+      <button id="close-registration-btn" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-oiler-navy flex items-center justify-center cursor-pointer">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="text-left mb-6">
+        <span class="text-xs font-bold uppercase tracking-wider text-sunset-orange">Reserve Your Easel</span>
+        <h3 id="modal-class-title" class="font-serif font-black text-2xl text-oiler-navy mt-1">Class Registration</h3>
+        <p id="modal-class-meta" class="text-xs text-oiler-navy/70 mt-1 font-sans"></p>
+      </div>
+
+      <!-- Success message inside modal -->
+      <div id="reg-success-box" class="hidden p-6 bg-emerald-50 rounded-2xl border border-emerald-300 text-center space-y-2">
+        <i data-lucide="check-circle-2" class="w-10 h-10 text-emerald-600 mx-auto"></i>
+        <h4 class="font-serif font-bold text-lg text-emerald-900">Registration Saved!</h4>
+        <p class="text-xs text-emerald-800 font-sans">
+          We received your registration for <strong id="reg-confirm-name"></strong>. Aryn and The Blue Fox will send email confirmation details shortly.
+        </p>
+      </div>
+
+      <!-- Form inside modal -->
+      <form id="registration-form" class="space-y-4 text-left">
+        <div>
+          <label for="reg-student-name" class="block text-xs font-bold uppercase tracking-wider text-oiler-navy mb-1.5">Student / Attendee Name *</label>
+          <input
+            id="reg-student-name"
+            type="text"
+            required
+            placeholder="Sarah Jenkins"
+            class="w-full px-4 py-2.5 rounded-xl border border-ocean-water/80 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sunset-orange"
+          >
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="reg-email" class="block text-xs font-bold uppercase tracking-wider text-oiler-navy mb-1.5">Email *</label>
+            <input
+              id="reg-email"
+              type="email"
+              required
+              placeholder="sarah@example.com"
+              class="w-full px-4 py-2.5 rounded-xl border border-ocean-water/80 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sunset-orange"
+            >
+          </div>
+          <div>
+            <label for="reg-phone" class="block text-xs font-bold uppercase tracking-wider text-oiler-navy mb-1.5">Phone *</label>
+            <input
+              id="reg-phone"
+              type="tel"
+              required
+              placeholder="(612) 555-0123"
+              class="w-full px-4 py-2.5 rounded-xl border border-ocean-water/80 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sunset-orange"
+            >
+          </div>
+        </div>
+
+        <div>
+          <label for="reg-attendees" class="block text-xs font-bold uppercase tracking-wider text-oiler-navy mb-1.5">Number of Attendees</label>
+          <select
+            id="reg-attendees"
+            class="w-full px-4 py-2.5 rounded-xl border border-ocean-water/80 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-sunset-orange"
+          >
+            <option value="1">1 Person ($55)</option>
+            <option value="2">2 People ($110)</option>
+            <option value="3">3 People ($165)</option>
+            <option value="4">4 People ($220)</option>
+          </select>
+        </div>
+
+        <button
+          type="submit"
+          class="w-full mt-2 py-3.5 rounded-full bg-sunset-orange hover:bg-mango text-white font-bold text-sm uppercase tracking-wider shadow-md hover:shadow-lg transition-all cursor-pointer"
+        >
+          Confirm Reservation
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 7. FOOTER                                                 -->
+  <!-- ========================================================= -->
+  <footer id="app-footer" class="bg-oiler-navy text-white pt-20 pb-12 relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-[400px] h-[400px] rounded-full bg-brilliant-blue/5 -mr-48 -mt-48 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full bg-sunset-orange/5 -ml-36 -mb-36 pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left">
+        
+        <!-- Brand bio -->
+        <div class="space-y-6" id="footer-logo-col">
+          <a href="#home" class="inline-flex items-center space-x-3 group">
+            <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-white/80 shrink-0">
+              <img
+                src="./assets/images/regenerated_image_1782310732246.png"
+                alt="The Blue Fox Mascot Logo"
+                class="w-full h-full object-cover"
+              >
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xl sm:text-2xl font-serif font-black tracking-tight text-white">
+                The Blue <span class="text-sunset-orange">Fox</span>
+              </span>
+              <span class="text-[10px] uppercase tracking-widest text-ocean-water font-sans font-semibold">
+                Fine Art Classes
+              </span>
+            </div>
+          </a>
+          
+          <p class="text-sm text-white/70 font-sans leading-relaxed">
+            Unleash your imagination and join us on Facebook to be a part of The Blue Fox artist community!
+          </p>
+
+          <a
+            id="footer-facebook-btn"
+            href="http://www.facebook.com/thebluefoxclasses"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit The Blue Fox on Facebook"
+            class="inline-flex items-center space-x-2.5 bg-sunset-orange hover:bg-mango text-white font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg hover:shadow-sunset-orange/30 transform hover:scale-105 shrink-0"
+            title="Visit our Facebook page"
+          >
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            <span>Follow Us on Facebook</span>
+          </a>
+        </div>
+
+        <!-- Quick Navigations -->
+        <div class="space-y-4" id="footer-links-col">
+          <h4 class="text-base font-serif font-black text-mango tracking-wider uppercase mb-2">
+            Explore Inside
+          </h4>
+          <nav class="grid grid-cols-2 gap-x-4 gap-y-2 font-sans font-semibold text-sm">
+            <a href="#home" class="text-white/70 hover:text-sunset-orange transition-colors">HOME</a>
+            <a href="#about" class="text-white/70 hover:text-sunset-orange transition-colors">ABOUT</a>
+            <a href="#calendar" class="text-white/70 hover:text-sunset-orange transition-colors">CALENDAR</a>
+            <a href="#portfolio" class="text-white/70 hover:text-sunset-orange transition-colors">PORTFOLIO</a>
+            <a href="#student-masterpieces" class="text-white/70 hover:text-sunset-orange transition-colors">MASTERPIECES</a>
+            <a href="#barn-quilt-designs" class="text-white/70 hover:text-sunset-orange transition-colors">BARN QUILTS</a>
+            <a href="#lead-capture" class="text-white/70 hover:text-sunset-orange transition-colors">CONTACT</a>
+          </nav>
+        </div>
+
+        <!-- Studio Info -->
+        <div class="space-y-4" id="footer-contact-col">
+          <h4 class="text-base font-serif font-black text-mango tracking-wider uppercase mb-2">
+            The Blue Fox Studio
+          </h4>
+          <p class="text-sm text-white/70 font-sans leading-relaxed">
+            Traveling fine art classes & workshops across Minneapolis, St. Paul, White Bear Lake, Monticello, Osseo, and the Minnesota Landscape Arboretum.
+          </p>
+          <div class="pt-2 text-xs text-white/50">
+            &copy; 2026 The Blue Fox Fine Art Classes. All rights reserved.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+  <!-- App Data & Scripts -->
+  <script src="./js/data.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>

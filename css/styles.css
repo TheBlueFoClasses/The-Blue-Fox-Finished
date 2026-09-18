@@ -1,0 +1,87 @@
+/* The Blue Fox - Fine Art Classes
+   Pure CSS for static GitHub Pages deployment
+   Matches the exact brand aesthetics and visual format
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
+
+:root {
+  --color-sunset-orange: #f36b2e;
+  --color-mango: #ffbe26;
+  --color-ocean-water: #cce6f4;
+  --color-bright-blue: #1a6bb5;
+  --color-brilliant-blue: #0c4a86;
+  --color-oiler-navy: #19244e;
+  --color-french-violet: #803cd6;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Source Sans 3', sans-serif;
+  color: #19244e;
+  background-color: #ffffff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-sans {
+  font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cce6f4;
+  border-radius: 9999px;
+  border: 2px solid #f1f5f9;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1a6bb5;
+}
+
+/* Modal animations */
+.modal-backdrop {
+  opacity: 0;
+  transition: opacity 0.25s ease-out;
+}
+.modal-backdrop.open {
+  opacity: 1;
+}
+
+.modal-content {
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease-out;
+}
+.modal-backdrop.open .modal-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Calendar month transition */
+.calendar-grid {
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Print optimizations */
+@media print {
+  header, footer, #hero-cta-group, button, .no-print {
+    display: none !important;
+  }
+}
