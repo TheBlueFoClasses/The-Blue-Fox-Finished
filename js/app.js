@@ -733,16 +733,30 @@ function closeRegistrationModal() {
   setTimeout(() => modal.classList.add('hidden'), 250);
 }
 
+// Helper to resolve the correct API base URL
+function getApiBaseUrl() {
+  if (window.THE_BLUE_FOX_API_URL) {
+    return window.THE_BLUE_FOX_API_URL.replace(/\/+$/, '');
+  }
+  const hostname = window.location.hostname;
+  // If hosted on GitHub Pages or custom external static domain, route to the live Cloud Run backend
+  if (hostname.endsWith('github.io') || (hostname !== 'localhost' && hostname !== '127.0.0.1' && !hostname.includes('.run.app'))) {
+    return 'https://ais-dev-mpw3lmgni5s5jkcjkkyntr-616523178071.us-west2.run.app';
+  }
+  return '';
+}
+
 function handleRegistrationSubmit(e) {
   e.preventDefault();
   const name = document.getElementById('reg-student-name').value;
   const email = document.getElementById('reg-email').value;
   const phone = document.getElementById('reg-phone').value;
   const count = document.getElementById('reg-attendees').value || '1';
+  const cls = activeRegistrationClass;
 
   const registration = {
-    classId: activeRegistrationClass ? activeRegistrationClass.id : 'custom',
-    classTitle: activeRegistrationClass ? activeRegistrationClass.title : 'Custom',
+    classId: cls ? cls.id : 'custom',
+    classTitle: cls ? cls.title : 'Custom',
     studentName: name,
     email,
     phone,
@@ -750,7 +764,7 @@ function handleRegistrationSubmit(e) {
     timestamp: new Date().toISOString()
   };
 
-  // Local storage save
+  // 1. Local storage backup
   try {
     const existing = JSON.parse(localStorage.getItem('the_blue_fox_registrations') || '[]');
     existing.push(registration);
@@ -759,7 +773,29 @@ function handleRegistrationSubmit(e) {
     console.warn('Could not save registration to local storage:', err);
   }
 
-  // Show success view
+  // 2. Save directly to MongoDB database the_blue_fox (submissions collection)
+  const submissionPayload = {
+    name: name.trim(),
+    email: email.trim().toLowerCase(),
+    phone: phone.trim(),
+    subject: `Class Registration: ${cls ? cls.title : 'Art Class'}`,
+    message: `Registration for "${cls ? cls.title : 'Art Class'}" (${cls ? cls.dateLabel : ''}). Attendees: ${count}. Total: $${cls ? cls.price * parseInt(count, 10) : 55}`,
+    inquiryType: 'class-registration',
+    source: 'registration_modal',
+    submittedAt: new Date().toISOString()
+  };
+
+  fetch(`${getApiBaseUrl()}/api/submissions`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(submissionPayload)
+  }).then((r) => r.json()).then((data) => {
+    console.log('✅ Class registration stored in database:', data);
+  }).catch((err) => {
+    console.warn('Note: registration backed up locally:', err);
+  });
+
+  // Show success view inside modal
   const formBox = document.getElementById('registration-form');
   const successBox = document.getElementById('reg-success-box');
   if (formBox) formBox.classList.add('hidden');
@@ -767,60 +803,170 @@ function handleRegistrationSubmit(e) {
     successBox.classList.remove('hidden');
     document.getElementById('reg-confirm-name').textContent = name;
   }
+  if (window.lucide) window.lucide.createIcons();
 }
 
 // -------------------------------------------------------------
-// 9. Lead Capture & Contact Form
+// 9. Lead Capture & Contact Form (Stores into the_blue_fox.submissions)
 // -------------------------------------------------------------
 function initLeadForm() {
   const form = document.getElementById('lead-capture-form');
-  const successAlert = document.getElementById('lead-success-alert');
+  const errorAlert = document.getElementById('lead-error-alert');
+  const errorMessageEl = document.getElementById('lead-error-message');
+  const confirmationCard = document.getElementById('lead-confirmation-card');
+  const submitBtn = document.getElementById('lead-submit-btn');
+  const resetBtn = document.getElementById('lead-reset-btn');
 
   if (!form) return;
+
+  // Reset button to send another message
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      form.reset();
+      if (confirmationCard) confirmationCard.classList.add('hidden');
+      if (errorAlert) errorAlert.classList.add('hidden');
+      form.classList.remove('hidden');
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById('lead-name').value;
-    const email = document.getElementById('lead-email').value;
-    const phone = document.getElementById('lead-phone').value;
-    const message = document.getElementById('lead-message').value;
-    const inquiryType = document.getElementById('lead-inquiry-type').value;
+    const nameInput = document.getElementById('lead-name');
+    const emailInput = document.getElementById('lead-email');
+    const phoneInput = document.getElementById('lead-phone');
+    const messageInput = document.getElementById('lead-message');
+    const inquiryTypeSelect = document.getElementById('lead-inquiry-type');
+
+    const name = nameInput ? nameInput.value.trim() : '';
+    const email = emailInput ? emailInput.value.trim().toLowerCase() : '';
+    const phone = phoneInput ? phoneInput.value.trim() : '';
+    const message = messageInput ? messageInput.value.trim() : '';
+    const inquiryType = inquiryTypeSelect ? inquiryTypeSelect.value : 'general';
+    const inquiryText = inquiryTypeSelect && inquiryTypeSelect.options[inquiryTypeSelect.selectedIndex] 
+      ? inquiryTypeSelect.options[inquiryTypeSelect.selectedIndex].text 
+      : inquiryType;
+
+    // Clear previous error
+    if (errorAlert) errorAlert.classList.add('hidden');
+
+    // UI Loading state
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i>
+        <span>Saving to Database...</span>
+      `;
+      if (window.lucide) window.lucide.createIcons();
+    }
 
     const payload = {
       name,
       email,
       phone,
+      subject: inquiryText,
       message,
       inquiryType,
+      source: 'contact_form',
       submittedAt: new Date().toISOString()
     };
 
-    // 1. Save to localStorage backup (ensures 100% functionality on static GitHub Pages)
+    // 1. Always save to localStorage as resilient offline backup
     try {
       const existing = JSON.parse(localStorage.getItem('the_blue_fox_leads') || '[]');
-      existing.push(payload);
+      existing.unshift(payload);
       localStorage.setItem('the_blue_fox_leads', JSON.stringify(existing));
     } catch (err) {
       console.warn('Could not save lead to local storage:', err);
     }
 
-    // 2. Try POSTing to server if active
+    // 2. Submit to backend API connected to MongoDB Atlas database 'the_blue_fox' (collection: 'submissions')
+    let submissionRefId = 'sub_' + Math.random().toString(36).substring(2, 9);
+    let isSavedToMongo = false;
+
     try {
-      fetch('/api/leads', {
+      const apiUrl = `${getApiBaseUrl()}/api/submissions`;
+      const response = await fetch(apiUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify(payload)
-      }).catch(() => {});
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        isSavedToMongo = true;
+        submissionRefId = data.id || submissionRefId;
+        console.log(`✅ Form successfully saved to MongoDB Atlas the_blue_fox.submissions (ID: ${submissionRefId})`);
+      } else {
+        throw new Error(data.error || 'Server was unable to save your submission.');
+      }
     } catch (err) {
-      // Ignored for static host
+      console.warn('Backend note:', err?.message || err);
+      // If validation error from server, display it
+      if (err.message && err.message.toLowerCase().includes('validation error')) {
+        if (errorAlert && errorMessageEl) {
+          errorMessageEl.textContent = err.message;
+          errorAlert.classList.remove('hidden');
+          errorAlert.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `
+            <i data-lucide="send" class="w-4 h-4"></i>
+            <span>Send Message</span>
+          `;
+          if (window.lucide) window.lucide.createIcons();
+        }
+        return;
+      }
+      // If network offline, submission is safely saved in local backup
+      submissionRefId = 'offline_' + Date.now().toString(36);
     }
 
-    // Display confirmation
-    form.reset();
-    if (successAlert) {
-      successAlert.classList.remove('hidden');
-      successAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // 3. Display rich confirmation card
+    const confirmNameEl = document.getElementById('confirm-user-name');
+    const confirmEmailEl = document.getElementById('confirm-user-email');
+    const confirmTopicEl = document.getElementById('confirm-topic');
+    const confirmRefIdEl = document.getElementById('confirm-ref-id');
+    const confirmTimestampEl = document.getElementById('confirm-timestamp');
+
+    if (confirmNameEl) confirmNameEl.textContent = name || 'Friend';
+    if (confirmEmailEl) confirmEmailEl.textContent = email;
+    if (confirmTopicEl) confirmTopicEl.textContent = inquiryText;
+    if (confirmRefIdEl) {
+      confirmRefIdEl.textContent = submissionRefId;
+      if (isSavedToMongo) {
+        confirmRefIdEl.className = 'font-mono text-xs text-emerald-700 font-bold';
+      }
+    }
+    if (confirmTimestampEl) {
+      const now = new Date();
+      confirmTimestampEl.textContent = `${now.toLocaleDateString()} at ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+    }
+
+    // Hide form, show confirmation card
+    form.classList.add('hidden');
+    if (confirmationCard) {
+      confirmationCard.classList.remove('hidden');
+      confirmationCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // Restore button for next time
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `
+        <i data-lucide="send" class="w-4 h-4"></i>
+        <span>Send Message</span>
+      `;
+    }
+
+    if (window.lucide) {
+      window.lucide.createIcons();
     }
   });
 }

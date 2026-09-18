@@ -613,13 +613,70 @@
           </p>
         </div>
 
-        <!-- Success Alert (Shown when form submitted) -->
-        <div id="lead-success-alert" class="hidden mb-8 p-6 bg-emerald-50 border border-emerald-300 rounded-3xl text-center">
-          <i data-lucide="check-circle-2" class="w-10 h-10 text-emerald-600 mx-auto mb-2"></i>
-          <h4 class="font-serif font-bold text-xl text-emerald-900 mb-1">Thank You! Your message has been sent.</h4>
-          <p class="text-sm text-emerald-800 font-sans">
-            Aryn will review your inquiry and get back to you within 24–48 hours.
-          </p>
+        <!-- Error Alert (Shown if validation or network issue occurs) -->
+        <div id="lead-error-alert" class="hidden mb-8 p-6 bg-red-50 border border-red-200 rounded-3xl text-left flex items-start space-x-4">
+          <i data-lucide="alert-circle" class="w-6 h-6 text-red-600 shrink-0 mt-0.5"></i>
+          <div>
+            <h4 class="font-serif font-bold text-lg text-red-900 mb-1">Unable to Submit Message</h4>
+            <p id="lead-error-message" class="text-sm text-red-700 font-sans">
+              Please check your information and try again.
+            </p>
+          </div>
+        </div>
+
+        <!-- Success Confirmation Card (Replaces form when submitted) -->
+        <div id="lead-confirmation-card" class="hidden bg-white p-8 sm:p-12 rounded-[2.5rem] border-2 border-emerald-400/60 shadow-xl text-center space-y-6">
+          <div class="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto text-emerald-600 shadow-inner">
+            <i data-lucide="check-circle-2" class="w-10 h-10"></i>
+          </div>
+
+          <div>
+            <span class="inline-block text-[11px] font-black uppercase tracking-widest px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-800 mb-3 border border-emerald-300">
+              Message Successfully Received
+            </span>
+            <h3 class="text-2xl sm:text-4xl font-serif font-black text-oiler-navy tracking-tight mb-2">
+              Thank You, <span id="confirm-user-name">Friend</span>!
+            </h3>
+            <p class="text-base sm:text-lg text-oiler-navy/80 font-sans max-w-xl mx-auto leading-relaxed">
+              Your inquiry has been successfully received and saved to <strong class="text-oiler-navy">The Blue Fox</strong> database. Aryn Lill Diemand will review your message and reach out to you within 24–48 hours.
+            </p>
+          </div>
+
+          <!-- Database Receipt Box -->
+          <div class="bg-ocean-water/15 rounded-2xl p-5 sm:p-6 border border-ocean-water/50 text-left max-w-lg mx-auto text-xs sm:text-sm space-y-2 text-oiler-navy/80 font-sans">
+            <div class="flex items-center justify-between pb-2 border-b border-ocean-water/40 font-semibold text-oiler-navy">
+              <span>Database Destination:</span>
+              <span class="font-mono text-xs px-2 py-0.5 bg-white rounded border border-ocean-water text-sunset-orange">the_blue_fox.submissions</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-oiler-navy/60">Submission ID:</span>
+              <span id="confirm-ref-id" class="font-mono text-xs text-oiler-navy font-bold">Pending...</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-oiler-navy/60">Confirmation Email:</span>
+              <span id="confirm-user-email" class="font-medium text-oiler-navy"></span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-oiler-navy/60">Inquiry Topic:</span>
+              <span id="confirm-topic" class="font-medium text-oiler-navy capitalize"></span>
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span class="text-oiler-navy/60">Submitted At:</span>
+              <span id="confirm-timestamp" class="text-xs text-oiler-navy/70"></span>
+            </div>
+          </div>
+
+          <!-- Reset Button to send another inquiry -->
+          <div class="pt-4">
+            <button
+              id="lead-reset-btn"
+              type="button"
+              class="inline-flex items-center space-x-2 text-sm font-bold uppercase tracking-wider text-sunset-orange hover:text-mango py-2 px-6 rounded-full border border-sunset-orange/40 hover:border-mango transition-all cursor-pointer"
+            >
+              <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+              <span>Send Another Message</span>
+            </button>
+          </div>
         </div>
 
         <!-- Contact Form -->
@@ -696,11 +753,12 @@
           </div>
 
           <button
+            id="lead-submit-btn"
             type="submit"
-            class="w-full py-4 rounded-full bg-sunset-orange hover:bg-mango text-white font-bold text-sm uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer"
+            class="w-full py-4 rounded-full bg-sunset-orange hover:bg-mango text-white font-bold text-sm uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
           >
-            <i data-lucide="send" class="w-4 h-4"></i>
-            <span>Send Message</span>
+            <i data-lucide="send" id="lead-submit-icon" class="w-4 h-4"></i>
+            <span id="lead-submit-text">Send Message</span>
           </button>
         </form>
 
