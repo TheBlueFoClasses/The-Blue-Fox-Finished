@@ -1,18 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import "tailwindcss";
 
 @theme {
   --color-sunset-orange: #f36b2e;
-  --color-mango: #f59a1c;
-  --color-blue-fox-yellow: #f59a1c;
+  --color-mango: #f59a1e;
+  --color-blue-fox-yellow: #f59a1e;
   --color-ocean-water: #c4e7e5;
-  --color-bright-blue: #00adef;
+  --color-bright-blue: #253c96;
   --color-brilliant-blue: #253c96;
   --color-oiler-navy: #19244e;
   --color-french-violet: #6b359c;
   
   --font-serif: "Playfair Display", Georgia, serif;
-  --font-sans: "Source Sans Pro", "Source Sans 3", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-subhead: "Playfair Display", Georgia, serif;
 }
 
 /* Custom scroll behavior and base styles */
@@ -22,9 +23,17 @@ html {
 
 body {
   font-family: var(--font-sans);
+  font-weight: 300; /* Inter Light as body font */
   color: var(--color-oiler-navy);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2 {
   font-family: var(--font-serif);
 }
+
+/* Subhead font: Playfair Display */
+h3, h4, h5, h6, .font-subhead, .subhead {
+  font-family: var(--font-subhead);
+  font-weight: 700;
+}
+

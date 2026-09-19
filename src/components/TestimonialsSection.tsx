@@ -24,7 +24,7 @@ export default function TestimonialsSection() {
                   “
                 </span>
 
-                <p className="text-base sm:text-lg text-oiler-navy/85 italic leading-relaxed font-sans relative z-10 font-medium">
+                <p className="text-base sm:text-lg text-oiler-navy/85 italic leading-relaxed font-serif relative z-10">
                   "{t.text}"
                 </p>
 

@@ -107,8 +107,7 @@ export default function LeadCaptureSection() {
               id="lead-title"
               className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-oiler-navy tracking-tight leading-tight"
             >
-              Host an Art Party <br className="hidden sm:inline" />
-              or Ask a Question
+              Contact Us
             </h2>
             
             <p className="text-base sm:text-lg text-oiler-navy/80 font-sans leading-relaxed">

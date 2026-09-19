@@ -3,21 +3,27 @@
    Matches the exact brand aesthetics and visual format
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700&display=swap');
 
 :root {
   --color-sunset-orange: #f36b2e;
-  --color-mango: #ffbe26;
-  --color-ocean-water: #cce6f4;
-  --color-bright-blue: #1a6bb5;
-  --color-brilliant-blue: #0c4a86;
+  --color-mango: #f59a1e;
+  --color-ocean-water: #c4e7e5;
+  --color-bright-blue: #253c96;
+  --color-brilliant-blue: #253c96;
   --color-oiler-navy: #19244e;
   --color-french-violet: #803cd6;
+
+  /* Typography Variables */
+  --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-subhead: 'Playfair Display', Georgia, serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
 }
 
 html {
   scroll-behavior: smooth;
-  font-family: 'Source Sans 3', sans-serif;
+  font-family: var(--font-body);
+  font-weight: 300; /* Inter Light */
   color: #19244e;
   background-color: #ffffff;
 }
@@ -25,17 +31,34 @@ html {
 body {
   margin: 0;
   padding: 0;
+  font-family: var(--font-body);
+  font-weight: 300; /* Inter Light */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-.font-serif {
-  font-family: 'Playfair Display', Georgia, serif;
+/* Body font: Inter Light */
+body, p, li, input, select, textarea, label, .font-sans, .font-light {
+  font-family: var(--font-body);
+  font-weight: 300; /* Inter Light */
 }
 
-.font-sans {
-  font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+/* Subhead font: Playfair Display */
+.font-subhead,
+.subhead,
+h3,
+h4,
+h5,
+h6,
+.section-subhead,
+.class-subhead {
+  font-family: var(--font-subhead);
+  font-weight: 700;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
 }
 
 /* Custom Scrollbar */
@@ -47,12 +70,12 @@ body {
   background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cce6f4;
+  background: #c4e7e5;
   border-radius: 9999px;
   border: 2px solid #f1f5f9;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #1a6bb5;
+  background: #253c96;
 }
 
 /* Modal animations */

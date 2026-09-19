@@ -36,10 +36,10 @@ function initHeader() {
   // Sticky header on scroll
   window.addEventListener('scroll', () => {
     if (window.scrollY > 20) {
-      header.classList.add('bg-white', 'shadow-md', 'py-2', 'border-b', 'border-[#cce6f4]/30');
+      header.classList.add('bg-white', 'shadow-md', 'py-2', 'border-b', 'border-[#c4e7e5]/30');
       header.classList.remove('bg-white/90', 'backdrop-blur-md', 'py-4');
     } else {
-      header.classList.remove('bg-white', 'shadow-md', 'py-2', 'border-b', 'border-[#cce6f4]/30');
+      header.classList.remove('bg-white', 'shadow-md', 'py-2', 'border-b', 'border-[#c4e7e5]/30');
       header.classList.add('bg-white/90', 'backdrop-blur-md', 'py-4');
     }
   });
@@ -129,8 +129,9 @@ function initRouter() {
 // -------------------------------------------------------------
 // 3. Calendar Controller
 // -------------------------------------------------------------
-let currentMonth = 6; // July 2026 default
-const currentYear = 2026;
+const blueFoxInitialDate = new Date();
+let currentMonth = blueFoxInitialDate.getMonth(); // Starts in current month according to current date
+let currentYear = blueFoxInitialDate.getFullYear();
 let calendarSearch = '';
 let calendarAgeFilter = 'all';
 let calendarMediumFilter = 'all';
@@ -175,8 +176,11 @@ function initCalendar() {
     prevBtn.addEventListener('click', () => {
       if (currentMonth > 0) {
         currentMonth--;
-        renderCalendar();
+      } else {
+        currentMonth = 11;
+        currentYear--;
       }
+      renderCalendar();
     });
   }
 
@@ -184,8 +188,11 @@ function initCalendar() {
     nextBtn.addEventListener('click', () => {
       if (currentMonth < 11) {
         currentMonth++;
-        renderCalendar();
+      } else {
+        currentMonth = 0;
+        currentYear++;
       }
+      renderCalendar();
     });
   }
 
@@ -260,33 +267,41 @@ function renderCalendar() {
     const dayClasses = classesByDate[dStr] || [];
 
     const cell = document.createElement('div');
-    cell.className = 'min-h-[110px] bg-white p-2 sm:p-2.5 border border-ocean-water/40 rounded-2xl flex flex-col justify-between hover:border-sunset-orange/50 transition-colors shadow-xs';
+    cell.className = 'min-h-[125px] sm:min-h-[145px] bg-white p-2 sm:p-2.5 border border-ocean-water/40 rounded-2xl flex flex-col justify-between hover:border-sunset-orange/50 transition-colors shadow-xs';
 
     const header = document.createElement('div');
-    header.className = 'flex items-center justify-between';
-    header.innerHTML = `<span class="text-sm font-bold font-sans ${dayClasses.length > 0 ? 'text-oiler-navy' : 'text-slate-400'}">${day}</span>`;
-    if (dayClasses.length > 0) {
-      header.innerHTML += `<span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-sunset-orange/10 text-sunset-orange">${dayClasses.length} ${dayClasses.length === 1 ? 'class' : 'classes'}</span>`;
-    }
+    header.className = 'flex items-center justify-between mb-1';
+    header.innerHTML = `<span class="text-sm font-subhead font-medium ${dayClasses.length > 0 ? 'text-oiler-navy' : 'text-slate-400'}">${day}</span>`;
     cell.appendChild(header);
 
     const listContainer = document.createElement('div');
-    listContainer.className = 'space-y-1.5 mt-1.5';
+    listContainer.className = 'space-y-1.5 flex-1 flex flex-col justify-end';
 
     dayClasses.forEach((cls) => {
-      const pill = document.createElement('div');
-      pill.className = `text-[11px] p-1.5 rounded-lg font-medium cursor-pointer transition-all hover:scale-[1.02] shadow-xs flex flex-col ${cls.dotsColor}`;
+      const regUrl = cls.externalUrl || 'https://isd1.arux.app/course/677/fy-26-27/barn-quilt-painting-class';
+      const pill = document.createElement('a');
+      pill.href = regUrl;
+      pill.target = '_blank';
+      pill.rel = 'noopener noreferrer';
+      pill.className = `text-[11px] p-2 rounded-xl cursor-pointer transition-all hover:scale-[1.02] shadow-xs flex flex-col group ${cls.dotsColor}`;
+      pill.setAttribute('title', `Register directly for ${cls.title} on official registration portal`);
       pill.innerHTML = `
-        <span class="font-bold truncate leading-tight">${cls.title}</span>
-        <div class="flex items-center justify-between text-[10px] opacity-90 mt-0.5">
-          <span>${cls.timeLabel.split('-')[0].trim()}</span>
-          <span>$${cls.price}</span>
+        <div class="flex items-start justify-between gap-1">
+          <span class="font-subhead font-bold text-xs leading-snug">${cls.title}</span>
+          <i data-lucide="external-link" class="w-3 h-3 opacity-75 group-hover:opacity-100 shrink-0 mt-0.5"></i>
+        </div>
+        <div class="text-[10px] opacity-90 mt-1 flex items-center gap-1 font-light">
+          <i data-lucide="map-pin" class="w-2.5 h-2.5 shrink-0 opacity-80"></i>
+          <span class="truncate">${cls.location || 'The Blue Fox Studio'}</span>
+        </div>
+        <div class="text-[10px] opacity-90 mt-0.5 flex items-center gap-1 font-light">
+          <i data-lucide="clock" class="w-2.5 h-2.5 shrink-0 opacity-80"></i>
+          <span>${cls.timeLabel}</span>
         </div>
       `;
 
       pill.addEventListener('click', (e) => {
         e.stopPropagation();
-        openClassAction(cls);
       });
 
       listContainer.appendChild(pill);
@@ -294,6 +309,10 @@ function renderCalendar() {
 
     cell.appendChild(listContainer);
     daysGrid.appendChild(cell);
+  }
+
+  if (window.lucide) {
+    window.lucide.createIcons();
   }
 }
 
@@ -316,23 +335,35 @@ function renderAnnualCalendar() {
     card.innerHTML = `
       <div>
         <div class="flex items-center justify-between border-b border-ocean-water/30 pb-3 mb-3">
-          <h4 class="font-serif font-black text-lg text-oiler-navy">${MONTH_NAMES[m]} ${currentYear}</h4>
-          <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-sunset-orange/10 text-sunset-orange">${monthClasses.length} Classes</span>
+          <h4 class="font-subhead font-bold text-lg text-oiler-navy">${MONTH_NAMES[m]} ${currentYear}</h4>
         </div>
-        <div class="space-y-2 max-h-56 overflow-y-auto pr-1">
-          ${monthClasses.length === 0 ? '<p class="text-xs text-oiler-navy/50 italic py-4 text-center">No scheduled public classes</p>' : ''}
-          ${monthClasses.map((c) => `
-            <div data-class-id="${c.id}" class="annual-class-item p-2 rounded-xl bg-ocean-water/10 hover:bg-ocean-water/30 cursor-pointer transition-colors border border-ocean-water/30 text-left">
-              <p class="text-xs font-bold text-oiler-navy truncate">${c.title}</p>
-              <div class="flex items-center justify-between text-[10px] text-oiler-navy/70 mt-1">
-                <span>${c.dateLabel.split(',')[0]}, ${c.dateLabel.split(',')[1]}</span>
-                <span class="font-bold text-sunset-orange">$${c.price}</span>
+        <div class="space-y-2 max-h-64 overflow-y-auto pr-1">
+          ${monthClasses.length === 0 ? '<p class="text-xs text-oiler-navy/50 italic py-4 text-center font-light">No scheduled public classes</p>' : ''}
+          ${monthClasses.map((c) => {
+            const regUrl = c.externalUrl || 'https://isd1.arux.app/course/677/fy-26-27/barn-quilt-painting-class';
+            return `
+            <a href="${regUrl}" target="_blank" rel="noopener noreferrer" class="annual-class-item p-2.5 rounded-xl bg-ocean-water/10 hover:bg-ocean-water/30 cursor-pointer transition-colors border border-ocean-water/30 text-left block group" title="Register directly on official registration page">
+              <div class="flex items-start justify-between gap-1">
+                <p class="text-xs font-subhead font-bold text-oiler-navy leading-snug">${c.title}</p>
+                <i data-lucide="external-link" class="w-3 h-3 text-sunset-orange opacity-75 group-hover:opacity-100 shrink-0 mt-0.5"></i>
               </div>
-            </div>
-          `).join('')}
+              <div class="text-[10px] text-oiler-navy/80 mt-1 flex items-center gap-1 font-light">
+                <i data-lucide="map-pin" class="w-2.5 h-2.5 text-sunset-orange shrink-0"></i>
+                <span class="truncate">${c.location || 'The Blue Fox Studio'}</span>
+              </div>
+              <div class="text-[10px] text-oiler-navy/80 mt-0.5 flex items-center justify-between font-light">
+                <span class="flex items-center gap-1">
+                  <i data-lucide="clock" class="w-2.5 h-2.5 text-sunset-orange shrink-0"></i>
+                  <span>${c.timeLabel}</span>
+                </span>
+                <span class="text-sunset-orange font-medium text-[9px] uppercase tracking-wider font-subhead">Register →</span>
+              </div>
+            </a>
+          `;
+          }).join('')}
         </div>
       </div>
-      <button data-jump-month="${m}" class="mt-4 text-xs font-bold uppercase tracking-wider text-sunset-orange hover:text-mango py-2 text-center border-t border-ocean-water/30 transition-colors cursor-pointer">
+      <button data-jump-month="${m}" class="mt-4 text-xs font-subhead font-medium uppercase tracking-wider text-sunset-orange hover:text-mango py-2 text-center border-t border-ocean-water/30 transition-colors cursor-pointer">
         View ${MONTH_NAMES[m]} Grid →
       </button>
     `;
@@ -346,22 +377,18 @@ function renderAnnualCalendar() {
       });
     }
 
-    // Class items click
-    card.querySelectorAll('.annual-class-item').forEach((item) => {
-      const cid = item.getAttribute('data-class-id');
-      const cls = BLUE_FOX_DATA.scheduledClasses.find((c) => c.id === cid);
-      if (cls) {
-        item.addEventListener('click', () => openClassAction(cls));
-      }
-    });
-
     container.appendChild(card);
+  }
+
+  if (window.lucide) {
+    window.lucide.createIcons();
   }
 }
 
 function openClassAction(cls) {
-  // If user clicks, show class details or go to hash
-  window.location.hash = `#${cls.id}`;
+  // Directly link to official registration page
+  const regUrl = cls.externalUrl || 'https://isd1.arux.app/course/677/fy-26-27/barn-quilt-painting-class';
+  window.open(regUrl, '_blank', 'noopener,noreferrer');
 }
 
 // -------------------------------------------------------------
@@ -430,10 +457,10 @@ function renderClassDetail(cls) {
           <div class="bg-white p-6 sm:p-8 rounded-3xl border border-ocean-water/40 shadow-md sticky top-24">
             <div class="flex items-center justify-between mb-6 pb-6 border-b border-ocean-water/30">
               <div>
-                <span class="text-xs text-oiler-navy/60 uppercase font-bold tracking-wider">Tuition</span>
-                <p class="text-3xl font-serif font-black text-oiler-navy">$${cls.price}</p>
+                <span class="text-xs text-oiler-navy/60 uppercase font-subhead font-medium tracking-wider">Official Registration</span>
+                <p class="text-lg font-subhead font-medium text-oiler-navy">Open For Enrollment</p>
               </div>
-              <span class="text-xs font-bold px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <span class="text-xs font-subhead font-medium px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
                 ${cls.slotsRemaining} seats left
               </span>
             </div>
@@ -716,7 +743,7 @@ function openRegistrationModal(cls) {
 
   if (classTitleEl) classTitleEl.textContent = cls ? cls.title : 'General Art Class Registration';
   if (classMetaEl && cls) {
-    classMetaEl.textContent = `${cls.dateLabel} • ${cls.timeLabel} • $${cls.price}`;
+    classMetaEl.textContent = `${cls.dateLabel} • ${cls.timeLabel} • ${cls.location || 'The Blue Fox Studio'}`;
   }
 
   if (successBox) successBox.classList.add('hidden');

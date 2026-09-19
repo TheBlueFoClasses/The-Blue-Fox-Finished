@@ -86,15 +86,11 @@ export default function ContactSection() {
         
         {/* Section Headline */}
         <div className="text-center max-w-2xl mx-auto mb-16" id="contact-header-block">
-          <div className="inline-flex items-center space-x-2 bg-mango/20 text-oiler-navy px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4">
-            <Mail className="w-4 h-4 text-sunset-orange" />
-            <span>Get in Touch</span>
-          </div>
           <h2
             id="contact-title"
             className="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-oiler-navy tracking-tight mb-4"
           >
-            Say Hello to Aryn
+            Contact Us
           </h2>
           <p className="text-base sm:text-lg text-oiler-navy/70 font-sans max-w-xl mx-auto">
             Have questions about a class or want to schedule a private event?<br />

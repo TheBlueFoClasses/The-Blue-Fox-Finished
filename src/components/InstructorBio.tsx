@@ -93,25 +93,25 @@ export default function InstructorBio() {
         {/* Brand values / Core feelings section */}
         <div className="mt-24" id="brand-values-grid-container">
           <div className="text-center max-w-xl mx-auto mb-12">
-            <h3 className="text-2xl font-serif font-bold text-oiler-navy">Our Studio Philosophy</h3>
-            <p className="text-sm text-oiler-navy/70 mt-2 font-sans">
-              Four simple pillars that make art classes at The Blue Fox a breath of fresh air.
+            <h3 className="text-2xl sm:text-3xl font-serif font-bold text-oiler-navy">Our Studio Philosophy</h3>
+            <p className="text-sm text-oiler-navy/70 mt-2 font-sans font-light">
+              Why our classes are one of a kind.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {values.map((v) => {
               const IconComp = v.icon;
               return (
                 <div
                   key={v.title}
-                  className="bg-white p-6 rounded-2xl border border-ocean-water/40 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 text-left flex flex-col"
+                  className="bg-white p-6 rounded-3xl border border-ocean-water/40 shadow-xs hover:shadow-md transition-all duration-300 hover:-translate-y-1 text-left flex flex-col"
                 >
-                  <div className={`w-12 h-12 rounded-xl ${v.color} flex items-center justify-center mb-5 shadow-inner`}>
+                  <div className={`w-12 h-12 rounded-2xl ${v.color} flex items-center justify-center mb-4 shadow-sm`}>
                     <IconComp className="w-6 h-6" />
                   </div>
-                  <h4 className="text-lg font-serif font-black text-oiler-navy mb-2">{v.title}</h4>
-                  <p className="text-sm text-oiler-navy/75 leading-relaxed font-sans mt-auto">{v.desc}</p>
+                  <h4 className="text-xl font-serif font-bold text-oiler-navy mb-2">{v.title}</h4>
+                  <p className="text-sm text-oiler-navy/75 leading-relaxed font-sans font-light mt-auto">{v.desc}</p>
                 </div>
               );
             })}

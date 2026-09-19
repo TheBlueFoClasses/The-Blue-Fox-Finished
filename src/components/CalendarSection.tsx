@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Search, Users, Clock, AlertCircle, ChevronLeft, ChevronRight, LayoutGrid, CalendarDays, X } from 'lucide-react';
+import { Search, Users, Clock, AlertCircle, ChevronLeft, ChevronRight, LayoutGrid, CalendarDays, X, ExternalLink, MapPin } from 'lucide-react';
 import { ArtClass } from '../types';
 import { getScheduledClassesForYear, ScheduledClass } from '../utils/calendarUtils';
 
@@ -24,8 +24,9 @@ export default function CalendarSection({ onClassSelect, onViewClassDetails }: C
   };
   
   // Annual calendar states
-  const year = 2026;
-  const [selectedMonth, setSelectedMonth] = useState<number>(new Date().getMonth()); // default to current month (July for local time 2026-07-14)
+  const now = new Date();
+  const year = now.getFullYear();
+  const [selectedMonth, setSelectedMonth] = useState<number>(now.getMonth()); // Start in current month according to current date
   const [activeTab, setActiveTab] = useState<'monthly' | 'annual'>('monthly');
 
   // Load chronological scheduled classes for the year 2026
@@ -373,49 +374,31 @@ export default function CalendarSection({ onClassSelect, onViewClassDetails }: C
 
                      {/* Classes container inside day */}
                      <div className="space-y-1.5 mt-1 flex-grow flex flex-col justify-end">
-                       {dayClasses.map((cl) => (
+                       {dayClasses.map((cl) => {
+                         const regUrl = cl.externalUrl || 'https://isd1.arux.app/course/677/fy-26-27/barn-quilt-painting-class';
+                         return (
                          <div key={cl.id} className="relative group">
-                           {cl.externalUrl ? (
-                             <a
-                               id={`cal-item-${cl.id}`}
-                               href={cl.externalUrl}
-                               target="_blank"
-                               rel="noopener noreferrer"
-                               className={`w-full text-left p-1.5 rounded-lg text-[10px] font-sans font-bold leading-tight transition-all transform hover:scale-102 hover:-translate-y-0.5 shadow-sm flex flex-col border border-black/5 hover:shadow-md cursor-pointer ${cl.dotsColor}`}
-                             >
-                               <span className="font-extrabold line-clamp-2 leading-snug">{cl.title}</span>
-                               {cl.location && (
-                                 <span className="text-[9px] font-medium opacity-90 line-clamp-1 mt-0.5">
-                                   {cl.location}
-                                 </span>
-                               )}
-                               {cl.subtitle && (
-                                 <span className="text-[9px] font-medium opacity-90 line-clamp-1 mt-0.5">
-                                   {cl.subtitle}
-                                 </span>
-                               )}
-                               <span className="opacity-80 font-mono text-[9px] mt-0.5">{cl.timeLabel}</span>
-                             </a>
-                           ) : (
-                             <button
-                               id={`cal-item-${cl.id}`}
-                               onClick={() => onViewClassDetails(cl)}
-                               className={`w-full text-left p-1.5 rounded-lg text-[10px] font-sans font-bold leading-tight transition-all transform hover:scale-102 hover:-translate-y-0.5 shadow-sm flex flex-col border border-black/5 hover:shadow-md cursor-pointer ${cl.dotsColor}`}
-                             >
-                               <span className="font-extrabold line-clamp-2 leading-snug">{cl.title}</span>
-                               {cl.location && (
-                                 <span className="text-[9px] font-medium opacity-90 line-clamp-1 mt-0.5">
-                                   {cl.location}
-                                 </span>
-                               )}
-                               {cl.subtitle && (
-                                 <span className="text-[9px] font-medium opacity-90 line-clamp-1 mt-0.5">
-                                   {cl.subtitle}
-                                 </span>
-                               )}
-                               <span className="opacity-80 font-mono text-[9px] mt-0.5">{cl.timeLabel}</span>
-                             </button>
-                           )}
+                           <a
+                             id={`cal-item-${cl.id}`}
+                             href={regUrl}
+                             target="_blank"
+                             rel="noopener noreferrer"
+                             className={`w-full text-left p-1.5 rounded-lg text-[10px] font-sans font-bold leading-tight transition-all transform hover:scale-102 hover:-translate-y-0.5 shadow-sm flex flex-col border border-black/5 hover:shadow-md cursor-pointer ${cl.dotsColor}`}
+                             title={`Register directly for ${cl.title} on official registration page`}
+                           >
+                             <div className="flex items-start justify-between gap-1">
+                               <span className="font-subhead font-bold text-xs leading-snug">{cl.title}</span>
+                               <ExternalLink className="w-2.5 h-2.5 opacity-70 group-hover:opacity-100 shrink-0 mt-0.5" />
+                             </div>
+                             <div className="text-[10px] opacity-90 mt-1 flex items-center gap-1 font-light">
+                               <MapPin className="w-2.5 h-2.5 shrink-0 opacity-80" />
+                               <span className="truncate">{cl.location || 'The Blue Fox Studio'}</span>
+                             </div>
+                             <div className="text-[10px] opacity-90 mt-0.5 flex items-center gap-1 font-light">
+                               <Clock className="w-2.5 h-2.5 shrink-0 opacity-80" />
+                               <span>{cl.timeLabel}</span>
+                             </div>
+                           </a>
                            
                            <button
                              id={`delete-btn-${cl.id}`}
@@ -429,7 +412,8 @@ export default function CalendarSection({ onClassSelect, onViewClassDetails }: C
                              <X className="w-2 h-2" />
                            </button>
                          </div>
-                       ))}
+                       );
+                       })}
                      </div>
                   </div>
                 );
@@ -466,15 +450,10 @@ export default function CalendarSection({ onClassSelect, onViewClassDetails }: C
                         setSelectedMonth(mIdx);
                         setActiveTab('monthly');
                       }}
-                      className="font-serif font-black text-lg text-oiler-navy hover:text-sunset-orange text-left hover:underline cursor-pointer"
+                      className="font-subhead font-black text-lg text-oiler-navy hover:text-sunset-orange text-left hover:underline cursor-pointer"
                     >
                       {monthName}
                     </button>
-                    {countClasses > 0 && (
-                      <span className="text-[9px] font-bold uppercase tracking-wider bg-ocean-water text-oiler-navy px-2 py-1 rounded-full border border-ocean-water/50">
-                        {countClasses} Classes
-                      </span>
-                    )}
                   </div>
 
                   {/* Week days mini header */}

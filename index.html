@@ -9,18 +9,37 @@
   <meta property="og:description" content="A creative, joyful, and calm art school website with class schedules, student portfolios, and registrations.">
   <meta property="og:image" content="./assets/images/ClassWilAnimalsFoxMask.jpg">
 
+  <!-- Google Fonts: Inter & Playfair Display -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            body: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            subhead: ['"Playfair Display"', 'Georgia', 'serif'],
+            serif: ['"Playfair Display"', 'Georgia', 'serif'],
+          },
+          fontWeight: {
+            light: '300',
+            normal: '300',
+            medium: '500',
+            semibold: '600',
+            bold: '700',
+            black: '900',
+          },
           colors: {
             'sunset-orange': '#f36b2e',
-            'mango': '#ffbe26',
-            'ocean-water': '#cce6f4',
-            'bright-blue': '#1a6bb5',
-            'brilliant-blue': '#0c4a86',
+            'mango': '#f59a1e',
+            'ocean-water': '#c4e7e5',
+            'bright-blue': '#253c96',
+            'brilliant-blue': '#253c96',
             'oiler-navy': '#19244e',
             'french-violet': '#803cd6',
           }
@@ -35,7 +54,7 @@
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="./css/styles.css">
 </head>
-<body class="bg-white text-oiler-navy font-sans antialiased selection:bg-sunset-orange selection:text-white">
+<body class="bg-white text-oiler-navy font-sans font-light antialiased selection:bg-sunset-orange selection:text-white">
 
   <!-- ========================================================= -->
   <!-- 1. HEADER & NAVIGATION                                    -->
@@ -284,53 +303,53 @@
         <!-- Studio Philosophy Pillars -->
         <div class="mt-24" id="brand-values-grid-container">
           <div class="text-center max-w-xl mx-auto mb-12">
-            <h3 class="text-2xl font-serif font-bold text-oiler-navy">Our Studio Philosophy</h3>
-            <p class="text-sm text-oiler-navy/70 mt-2 font-sans">
-              Four simple pillars that make art classes at The Blue Fox a breath of fresh air.
+            <h3 class="text-2xl sm:text-3xl font-subhead font-bold text-oiler-navy">Our Studio Philosophy</h3>
+            <p class="text-sm text-oiler-navy/70 mt-2 font-sans font-light">
+              Why our classes are one of a kind.
             </p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- 1. Fun -->
             <div class="bg-white p-6 rounded-3xl border border-ocean-water/40 shadow-xs hover:shadow-md transition-shadow">
-              <div class="w-12 h-12 rounded-2xl bg-sunset-orange text-white flex items-center justify-center mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-sunset-orange text-white flex items-center justify-center mb-4 shadow-sm">
                 <i data-lucide="smile" class="w-6 h-6"></i>
               </div>
-              <h4 class="font-serif font-bold text-lg text-oiler-navy mb-2">Fun</h4>
-              <p class="text-sm text-oiler-navy/70 font-sans leading-relaxed">
+              <h4 class="font-subhead font-bold text-xl text-oiler-navy mb-2">Fun</h4>
+              <p class="text-sm text-oiler-navy/70 font-sans font-light leading-relaxed">
                 Splatter paint, try something new, share stories, and meet new friends. A Blue Fox class is all about having fun and making memories while learning new techniques.
               </p>
             </div>
 
             <!-- 2. Inviting -->
             <div class="bg-white p-6 rounded-3xl border border-ocean-water/40 shadow-xs hover:shadow-md transition-shadow">
-              <div class="w-12 h-12 rounded-2xl bg-ocean-water text-oiler-navy flex items-center justify-center mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-ocean-water text-oiler-navy flex items-center justify-center mb-4 shadow-sm">
                 <i data-lucide="coffee" class="w-6 h-6"></i>
               </div>
-              <h4 class="font-serif font-bold text-lg text-oiler-navy mb-2">Inviting</h4>
-              <p class="text-sm text-oiler-navy/70 font-sans leading-relaxed">
+              <h4 class="font-subhead font-bold text-xl text-oiler-navy mb-2">Inviting</h4>
+              <p class="text-sm text-oiler-navy/70 font-sans font-light leading-relaxed">
                 Slow down, enjoy the ride, and feel at home. Our inviting spaces are chosen to make you feel comfortable and welcome, whatever your age or skill level.
               </p>
             </div>
 
             <!-- 3. Technical -->
             <div class="bg-white p-6 rounded-3xl border border-ocean-water/40 shadow-xs hover:shadow-md transition-shadow">
-              <div class="w-12 h-12 rounded-2xl bg-brilliant-blue text-white flex items-center justify-center mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-brilliant-blue text-white flex items-center justify-center mb-4 shadow-sm">
                 <i data-lucide="palette" class="w-6 h-6"></i>
               </div>
-              <h4 class="font-serif font-bold text-lg text-oiler-navy mb-2">Technical</h4>
-              <p class="text-sm text-oiler-navy/70 font-sans leading-relaxed">
+              <h4 class="font-subhead font-bold text-xl text-oiler-navy mb-2">Technical</h4>
+              <p class="text-sm text-oiler-navy/70 font-sans font-light leading-relaxed">
                 We are passionate about helping every student grow. Our curriculum emphasizes the fundamental elements of art with proven application methods to guide your process.
               </p>
             </div>
 
             <!-- 4. Creative -->
             <div class="bg-white p-6 rounded-3xl border border-ocean-water/40 shadow-xs hover:shadow-md transition-shadow">
-              <div class="w-12 h-12 rounded-2xl bg-mango text-oiler-navy flex items-center justify-center mb-4">
+              <div class="w-12 h-12 rounded-2xl bg-mango text-oiler-navy flex items-center justify-center mb-4 shadow-sm">
                 <i data-lucide="sparkles" class="w-6 h-6"></i>
               </div>
-              <h4 class="font-serif font-bold text-lg text-oiler-navy mb-2">Creative</h4>
-              <p class="text-sm text-oiler-navy/70 font-sans leading-relaxed">
+              <h4 class="font-subhead font-bold text-xl text-oiler-navy mb-2">Creative</h4>
+              <p class="text-sm text-oiler-navy/70 font-sans font-light leading-relaxed">
                 Discover your unique visual voice. We encourage customization, self-expression, experimentation, and completely free styling.
               </p>
             </div>
@@ -380,17 +399,14 @@
     </section>
 
     <!-- ----------------------------------------------------- -->
-    <!-- ANNUAL CLASS CALENDAR 2026 SECTION                    -->
+    <!-- THE BLUE FOX CALENDAR SECTION                         -->
     <!-- ----------------------------------------------------- -->
     <section id="calendar" class="py-20 lg:py-28 bg-white relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="text-center max-w-3xl mx-auto mb-12">
-          <span class="text-xs font-bold tracking-widest uppercase px-3.5 py-1.5 rounded-full bg-sunset-orange/10 text-sunset-orange inline-block mb-3">
-            Join a Workshop
-          </span>
           <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-oiler-navy tracking-tight mb-4">
-            Annual Class Calendar 2026
+            The Blue Fox Calendar
           </h2>
           <p class="text-base sm:text-lg text-oiler-navy/70 font-sans max-w-xl mx-auto">
             Browse our upcoming sessions across Minnesota communities. Click on any class to see complete details and reserve your easel.
@@ -463,8 +479,8 @@
               <span class="hidden sm:inline">Previous</span>
             </button>
 
-            <h3 id="calendar-month-title" class="text-xl sm:text-2xl font-serif font-black text-oiler-navy tracking-tight">
-              July 2026
+            <h3 id="calendar-month-title" class="text-2xl sm:text-3xl font-serif font-black text-oiler-navy tracking-tight">
+              September 2026
             </h3>
 
             <button
@@ -543,7 +559,7 @@
             <!-- Testimonial 1 -->
             <div class="bg-white p-8 sm:p-10 rounded-[2.5rem] border border-ocean-water/40 shadow-sm relative flex flex-col justify-between">
               <span class="absolute top-6 left-6 text-sunset-orange/15 font-serif text-8xl pointer-events-none -mt-4 font-black leading-none">“</span>
-              <p class="text-base sm:text-lg text-oiler-navy/85 italic leading-relaxed font-sans relative z-10 font-medium">
+              <p class="text-base sm:text-lg text-oiler-navy/85 italic leading-relaxed font-serif relative z-10">
                 "My daughter has participated in quite a few Community Education experiences and has generally enjoyed each class to varying degrees. This class was above and beyond positive! She came home each day full of joy. She absolutely loved the teacher and the structure of the class. The activities and environment were top-tier. Thank you for offering such a fun program, and thank you to the teacher for bringing joy to this class!"
               </p>
               <div class="mt-8 pt-6 border-t border-ocean-water/30 flex items-center space-x-4">
@@ -560,7 +576,7 @@
             <!-- Testimonial 2 -->
             <div class="bg-white p-8 sm:p-10 rounded-[2.5rem] border border-ocean-water/40 shadow-sm relative flex flex-col justify-between">
               <span class="absolute top-6 left-6 text-sunset-orange/15 font-serif text-8xl pointer-events-none -mt-4 font-black leading-none">“</span>
-              <p class="text-base sm:text-lg text-oiler-navy/85 italic leading-relaxed font-sans relative z-10 font-medium">
+              <p class="text-base sm:text-lg text-oiler-navy/85 italic leading-relaxed font-serif relative z-10">
                 "I really enjoyed the Monet Water Lilies Class! The instructor explained brush techniques and color mixing; she even left room for you to explore different painting processes, which resulted in an amazing array of creative originals! It was a happy experience that I would gladly do again."
               </p>
               <div class="mt-8 pt-6 border-t border-ocean-water/30 flex items-center space-x-4">
@@ -577,7 +593,7 @@
             <!-- Testimonial 3 -->
             <div class="bg-white p-8 sm:p-10 rounded-[2.5rem] border border-ocean-water/40 shadow-sm relative flex flex-col justify-between">
               <span class="absolute top-6 left-6 text-sunset-orange/15 font-serif text-8xl pointer-events-none -mt-4 font-black leading-none">“</span>
-              <p class="text-base sm:text-lg text-oiler-navy/85 italic leading-relaxed font-sans relative z-10 font-medium">
+              <p class="text-base sm:text-lg text-oiler-navy/85 italic leading-relaxed font-serif relative z-10">
                 "As an educator, I was impressed by the quality of instruction. The class was thoughtfully paced, allowing enough time to learn each step without feeling rushed while keeping everyone engaged from start to finish. Whether you are a beginner or have prior artistic experience, the instruction is designed to help you grow in confidence and leave with a piece you can be proud of. I highly recommend this class to anyone looking for a well-organized, engaging, and rewarding creative experience."
               </p>
               <div class="mt-8 pt-6 border-t border-ocean-water/30 flex items-center space-x-4">
@@ -602,11 +618,8 @@
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="text-center mb-12">
-          <span class="text-xs font-bold tracking-widest uppercase px-3.5 py-1.5 rounded-full bg-sunset-orange/10 text-sunset-orange inline-block mb-3">
-            Get in Touch
-          </span>
-          <h2 class="text-3xl sm:text-4xl font-serif font-black text-oiler-navy tracking-tight mb-4">
-            Have a Question or Want to Book a Private Class?
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-serif font-black text-oiler-navy tracking-tight mb-4">
+            Contact Us
           </h2>
           <p class="text-base sm:text-lg text-oiler-navy/70 font-sans max-w-xl mx-auto">
             Whether you want to host a private birthday workshop, plan a family gathering, or inquire about custom barn quilts, we’d love to hear from you!
@@ -867,9 +880,9 @@
         <img id="lightbox-img" src="" alt="" class="w-full h-full object-contain">
       </div>
       <div class="p-6 text-left">
-        <h3 id="lightbox-title" class="font-serif font-black text-2xl text-oiler-navy mb-1"></h3>
-        <p id="lightbox-author" class="text-sm font-bold text-sunset-orange mb-2"></p>
-        <p id="lightbox-desc" class="text-sm text-oiler-navy/70 leading-relaxed"></p>
+        <h3 id="lightbox-title" class="font-subhead font-medium text-2xl text-oiler-navy mb-1"></h3>
+        <p id="lightbox-author" class="text-sm font-subhead font-medium text-sunset-orange mb-2"></p>
+        <p id="lightbox-desc" class="text-sm text-oiler-navy/70 leading-relaxed font-sans font-light"></p>
       </div>
     </div>
   </div>
@@ -884,15 +897,15 @@
       </button>
 
       <div class="text-left mb-6">
-        <span class="text-xs font-bold uppercase tracking-wider text-sunset-orange">Reserve Your Easel</span>
-        <h3 id="modal-class-title" class="font-serif font-black text-2xl text-oiler-navy mt-1">Class Registration</h3>
-        <p id="modal-class-meta" class="text-xs text-oiler-navy/70 mt-1 font-sans"></p>
+        <span class="text-xs font-subhead font-medium uppercase tracking-wider text-sunset-orange">Reserve Your Easel</span>
+        <h3 id="modal-class-title" class="font-subhead font-medium text-2xl text-oiler-navy mt-1">Class Registration</h3>
+        <p id="modal-class-meta" class="text-xs text-oiler-navy/70 mt-1 font-sans font-light"></p>
       </div>
 
       <!-- Success message inside modal -->
       <div id="reg-success-box" class="hidden p-6 bg-emerald-50 rounded-2xl border border-emerald-300 text-center space-y-2">
         <i data-lucide="check-circle-2" class="w-10 h-10 text-emerald-600 mx-auto"></i>
-        <h4 class="font-serif font-bold text-lg text-emerald-900">Registration Saved!</h4>
+        <h4 class="font-subhead font-medium text-lg text-emerald-900">Registration Saved!</h4>
         <p class="text-xs text-emerald-800 font-sans">
           We received your registration for <strong id="reg-confirm-name"></strong>. Aryn and The Blue Fox will send email confirmation details shortly.
         </p>
@@ -1009,10 +1022,10 @@
 
         <!-- Quick Navigations -->
         <div class="space-y-4" id="footer-links-col">
-          <h4 class="text-base font-serif font-black text-mango tracking-wider uppercase mb-2">
+          <h4 class="text-base font-subhead font-medium text-mango tracking-wider uppercase mb-2">
             Explore Inside
           </h4>
-          <nav class="grid grid-cols-2 gap-x-4 gap-y-2 font-sans font-semibold text-sm">
+          <nav class="grid grid-cols-2 gap-x-4 gap-y-2 font-sans font-light text-sm">
             <a href="#home" class="text-white/70 hover:text-sunset-orange transition-colors">HOME</a>
             <a href="#about" class="text-white/70 hover:text-sunset-orange transition-colors">ABOUT</a>
             <a href="#calendar" class="text-white/70 hover:text-sunset-orange transition-colors">CALENDAR</a>
@@ -1025,13 +1038,13 @@
 
         <!-- Studio Info -->
         <div class="space-y-4" id="footer-contact-col">
-          <h4 class="text-base font-serif font-black text-mango tracking-wider uppercase mb-2">
+          <h4 class="text-base font-subhead font-medium text-mango tracking-wider uppercase mb-2">
             The Blue Fox Studio
           </h4>
-          <p class="text-sm text-white/70 font-sans leading-relaxed">
+          <p class="text-sm text-white/70 font-sans font-light leading-relaxed">
             Traveling fine art classes & workshops across Minneapolis, St. Paul, White Bear Lake, Monticello, Osseo, and the Minnesota Landscape Arboretum.
           </p>
-          <div class="pt-2 text-xs text-white/50">
+          <div class="pt-2 text-xs text-white/50 font-light">
             &copy; 2026 The Blue Fox Fine Art Classes. All rights reserved.
           </div>
         </div>
