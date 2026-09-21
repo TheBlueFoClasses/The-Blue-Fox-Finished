@@ -827,3 +827,18 @@ function getScheduledClasses2026() {
 }
 
 BLUE_FOX_DATA.scheduledClasses = getScheduledClasses2026();
+
+if (typeof window !== 'undefined') {
+  window.BLUE_FOX_DATA = BLUE_FOX_DATA;
+  if (typeof window.dispatchEvent === 'function' && typeof CustomEvent === 'function') {
+    try {
+      window.dispatchEvent(new CustomEvent('bluefox:data-ready'));
+    } catch (e) {}
+  }
+}
+if (typeof document !== 'undefined' && typeof document.dispatchEvent === 'function' && typeof CustomEvent === 'function') {
+  try {
+    document.dispatchEvent(new CustomEvent('bluefox:data-ready'));
+  } catch (e) {}
+}
+

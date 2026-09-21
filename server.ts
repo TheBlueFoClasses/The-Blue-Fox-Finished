@@ -23,6 +23,9 @@ async function startServer() {
     console.log('Running in Production mode - serving static files from dist...');
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
+    app.use('/js', express.static(path.join(process.cwd(), 'js')));
+    app.use('/css', express.static(path.join(process.cwd(), 'css')));
+    app.use('/assets', express.static(path.join(process.cwd(), 'assets')));
     app.get('*', (req, res, next) => {
       if (req.originalUrl.startsWith('/api/')) {
         return next();

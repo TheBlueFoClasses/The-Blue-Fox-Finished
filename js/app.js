@@ -4,26 +4,6 @@
  * Fully compatible with GitHub Pages static hosting
  */
 
-document.addEventListener('DOMContentLoaded', () => {
-  initApp();
-});
-
-function initApp() {
-  initHeader();
-  initCalendar();
-  initPortfolio();
-  initBarnQuilts();
-  initStudentMasterpieces();
-  initModals();
-  initLeadForm();
-  initRouter();
-
-  // Re-run icons
-  if (window.lucide) {
-    window.lucide.createIcons();
-  }
-}
-
 // -------------------------------------------------------------
 // 1. Header & Navigation
 // -------------------------------------------------------------
@@ -129,9 +109,47 @@ function initRouter() {
 // -------------------------------------------------------------
 // 3. Calendar Controller
 // -------------------------------------------------------------
-const blueFoxInitialDate = new Date();
-let currentMonth = blueFoxInitialDate.getMonth(); // Starts in current month according to current date
-let currentYear = blueFoxInitialDate.getFullYear();
+function getInitialCalendarDate() {
+  const data = window.BLUE_FOX_DATA || (typeof BLUE_FOX_DATA !== 'undefined' ? BLUE_FOX_DATA : null);
+  const classes = (data && Array.isArray(data.scheduledClasses)) ? data.scheduledClasses : [];
+  const now = new Date();
+  const sysYear = now.getFullYear();
+  const sysMonth = now.getMonth();
+
+  // 1. Check if current system month/year has classes
+  const sysMonthPrefix = `${sysYear}-${String(sysMonth + 1).padStart(2, '0')}`;
+  if (classes.some(c => c.dateString && c.dateString.startsWith(sysMonthPrefix))) {
+    return { year: sysYear, month: sysMonth };
+  }
+
+  // 2. Check if current system year has upcoming classes
+  const classesInSysYear = classes.filter(c => c.dateString && c.dateString.startsWith(`${sysYear}-`));
+  if (classesInSysYear.length > 0) {
+    const nextClass = classesInSysYear.find(c => {
+      const m = parseInt(c.dateString.split('-')[1], 10) - 1;
+      return m >= sysMonth;
+    }) || classesInSysYear[0];
+    const m = parseInt(nextClass.dateString.split('-')[1], 10) - 1;
+    return { year: sysYear, month: m };
+  }
+
+  // 3. If no classes in system year, default to 2026 where the studio workshop schedule is active
+  if (classes.length > 0) {
+    // Check if September 2026 has classes (matches header)
+    if (classes.some(c => c.dateString && c.dateString.startsWith('2026-09'))) {
+      return { year: 2026, month: 8 }; // September 2026
+    }
+    const firstClass = classes[0];
+    const parts = firstClass.dateString.split('-');
+    return { year: parseInt(parts[0], 10), month: parseInt(parts[1], 10) - 1 };
+  }
+
+  return { year: 2026, month: 8 };
+}
+
+const initialDate = getInitialCalendarDate();
+let currentMonth = initialDate.month;
+let currentYear = initialDate.year;
 let calendarSearch = '';
 let calendarAgeFilter = 'all';
 let calendarMediumFilter = 'all';
@@ -143,6 +161,10 @@ const MONTH_NAMES = [
 ];
 
 function initCalendar() {
+  const initDate = getInitialCalendarDate();
+  currentMonth = initDate.month;
+  currentYear = initDate.year;
+
   const searchInput = document.getElementById('calendar-search-input');
   const ageFilter = document.getElementById('calendar-age-filter');
   const mediumFilter = document.getElementById('calendar-medium-filter');
@@ -216,11 +238,24 @@ function initCalendar() {
     });
   }
 
+  // If data was dispatched asynchronously, re-render automatically
+  if (typeof window !== 'undefined') {
+    window.addEventListener('bluefox:data-ready', () => {
+      const readyDate = getInitialCalendarDate();
+      currentMonth = readyDate.month;
+      currentYear = readyDate.year;
+      renderCalendar();
+    });
+  }
+
   renderCalendar();
 }
 
 function getFilteredClasses() {
-  return BLUE_FOX_DATA.scheduledClasses.filter((c) => {
+  const data = window.BLUE_FOX_DATA || (typeof BLUE_FOX_DATA !== 'undefined' ? BLUE_FOX_DATA : null);
+  if (!data || !Array.isArray(data.scheduledClasses)) return [];
+
+  return data.scheduledClasses.filter((c) => {
     const matchesSearch = !calendarSearch || 
       c.title.toLowerCase().includes(calendarSearch) ||
       c.description.toLowerCase().includes(calendarSearch) ||
@@ -996,4 +1031,31 @@ function initLeadForm() {
       window.lucide.createIcons();
     }
   });
+}
+
+// -------------------------------------------------------------
+// Application Bootstrap
+// -------------------------------------------------------------
+function initApp() {
+  try { initHeader(); } catch (e) { console.error('initHeader error', e); }
+  try { initCalendar(); } catch (e) { console.error('initCalendar error', e); }
+  try { initPortfolio(); } catch (e) { console.error('initPortfolio error', e); }
+  try { initBarnQuilts(); } catch (e) { console.error('initBarnQuilts error', e); }
+  try { initStudentMasterpieces(); } catch (e) { console.error('initStudentMasterpieces error', e); }
+  try { initModals(); } catch (e) { console.error('initModals error', e); }
+  try { initLeadForm(); } catch (e) { console.error('initLeadForm error', e); }
+  try { initRouter(); } catch (e) { console.error('initRouter error', e); }
+
+  // Re-run icons
+  if (window.lucide && typeof window.lucide.createIcons === 'function') {
+    window.lucide.createIcons();
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initApp();
+  });
+} else {
+  initApp();
 }
